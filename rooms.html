@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Rooms & Suites – Ela Suits Hotel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --deep-blue: #0A1F3D;
+            --white: #ffffff;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--white);
+            color: var(--deep-blue);
+            
+            overflow-x: hidden;
+        }
+
+        /* HERO – Full screen with subtle overlay */
+        .hero {
+            height: 75vh;
+            background: linear-gradient(rgba(10, 31, 61, 0.468), rgba(10, 31, 61, 0.49)),
+                        url(img/o1.png) center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 9vw;
+            color: var(--gold);
+            letter-spacing: 12px;
+        }
+
+        /* HEADING AFTER HERO – Exactly what you asked */
+        .page-title {
+            text-align: center;
+            padding: 40px 5% 60px;
+            background: var(--white);
+        }
+        .page-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .page-title p {
+            font-size: 1.4rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+        }
+
+        /* COMPACT ELEGANT CARDS */
+        .rooms-container {
+            padding: 0 5% 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            max-width: 1350px;
+            margin: 0 auto;
+        }
+        .room-card {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.07);
+            background: var(--white);
+            transition: all 0.5s;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.14);
+        }
+        .room-img {
+            height: 320px;
+            overflow: hidden;
+        }
+        .room-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+        .room-card:hover .room-img img { transform: scale(1.1); }
+
+        .room-content {
+            padding: 26px 24px 30px;
+            text-align: center;
+        }
+        .room-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            margin-bottom: 6px;
+        }
+        .room-content .size {
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .room-content p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 16px;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+        .features span {
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 20px;
+        }
+        .price {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .btn {
+            padding: 10px 32px;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--deep-blue);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        .btn:hover {
+            background: var(--gold);
+            color: white;
+        }
+
+        .cta {
+            background: var(--deep-blue);
+            color: white;
+            text-align: center;
+            padding: 100px 10%;
+        }
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 11vw; }
+            .page-title { padding: 80px 5% 50px; }
+            .page-title h1 { font-size: 3.5rem; }
+            .rooms-container { padding: 0 4% 80px; gap: 30px; }
+            .room-img { height: 280px; }
+        }
+        /* facilities */
+       .facilities-section {
+  padding: 120px 5% 140px;
+  background: white;
+  text-align: center;
+}
+
+.facilities-header {
+  margin-bottom: 70px;
+}
+
+.stars i {
+  font-size: 1.4rem;
+  color: #d4af37;
+  margin: 0 4px;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color:var(--deep-blue);
+}
+
+.facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.facility-item {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 10px;
+  transition: 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+border: 1px solid var(--deep-blue);
+}
+
+.facility-item:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px  #d4af37;
+}
+
+.icon-wrapper {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.icon-wrapper i {
+  font-size: 36px;
+  color: #D4AF37;
+}
+
+.facility-item p {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .facilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .facilities-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .facility-item {
+    padding: 36px 20px;
+  }
+  .icon-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+  .icon-wrapper img {
+    width: 42px;
+    height: 42px;
+  }
+  .section-title {
+    font-size: 3rem;
+  }
+}
+    </style>
+</head>
+<body>
+
+     <!-- NAVBAR WITH FLIP-TO-X ICON (PERFECT) -->
+    <div class="nav-wrapper">
+        <div class="logo">
+            <img src="img/main-logo.png" alt="Ela Suites">
+        </div>
+
+        <div class="menu-container">
+            <div class="menu-item " data-link="index.html"><span class="num">1</span>&nbsp;<span
+                    class="label">Home</span></div>
+            <div class="menu-item" data-link="about.html"><span class="num">2</span>&nbsp;<span
+                    class="label">About</span></div>
+            <div class="menu-item active" data-link="rooms.html"><span class="num">3</span>&nbsp;<span
+                    class="label ">Rooms</span></div>
+            <div class="menu-item" data-link="gallery.html"><span class="num">4</span>&nbsp;<span
+                    class="label">Gallery</span></div>
+            <div class="menu-item " data-link="contact.html"><span class="num">5</span>&nbsp;<span
+                    class="label">Contact</span></div>
+
+           <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
+        </div>
+
+        <!-- Mobile Toggle with Flip X Animation -->
+        <div class="mobile-toggle" id="mobileToggle">
+            <i class="bi bi-list"></i>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="Book.html" class="mobile-book-now">Book Now ↗</a>
+    </div>
+
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>ELA SUITS</h1>
+    </section>
+
+    <!-- THIS IS YOUR REQUESTED HEADING – RIGHT AFTER HERO -->
+    <div class="page-title">
+        <h1>EXPLORE ROOMS & SUITES</h1>
+        <p>Discover timeless luxury in every detail – from intimate deluxe rooms to the magnificent Royal Penthouse</p>
+    </div>
+
+    <!-- ROOMS GRID -->
+    <div class="rooms-container">
+
+        <div class="room-card">
+            <div class="room-img"><img src="img/b3.png" alt="Deluxe"></div>
+            <div class="room-content">
+                <h2>Deluxe Room</h2>
+                <div class="size">42 SQM • CITY VIEW</div>
+                <p>Refined elegance with king bed and marble bathroom</p>
+                <div class="features"><span>King Bed</span><span>Rain Shower</span><span>Smart TV</span></div>
+                <div class="price">From ₹34,000 / night</div>
+               <a href="Book.html"><button class="btn">Book Now</button></a>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <div class="room-img"><img src="img/b4.png" alt="Premier"></div>
+            <div class="room-content">
+                <h2>Premier Suite</h2>
+                <div class="size">78 SQM • PANORAMIC VIEW</div>
+                <p>Separate living area and deep soaking tub</p>
+                <div class="features"><span>Living Room</span><span>Bathtub</span><span>Balcony</span></div>
+                <div class="price">From ₹64,000 / night</div>
+               <a href="Book.html"><button class="btn">Book Now</button></a>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <div class="room-img"><img src="img/b2.png" alt="Presidential"></div>
+            <div class="room-content">
+                <h2>Presidential Suite</h2>
+                <div class="size">165 SQM • 270° VIEW</div>
+                <p>Private terrace and dedicated butler service</p>
+                <div class="features"><span>Two Bedrooms</span><span>Terrace</span><span>Butler</span></div>
+                <div class="price">From ₹2,25,000 / night</div>
+               <a href="Book.html"><button class="btn">Book Now</button></a>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <div class="room-img"><img src="img/b1.png" alt="Royal"></div>
+            <div class="room-content">
+                <h2>Royal Penthouse</h2>
+                <div class="size">300 SQM • FULL FLOOR</div>
+                <p>Infinity plunge pool and 360° skyline views</p>
+                <div class="features"><span>Three Bedrooms</span><span>Private Pool</span><span>Cinema</span></div>
+                <div class="price">From ₹6,80,000 / night</div>
+                <a href="Book.html"><button class="btn">Book Now</button></a>
+            </div>
+        </div>
+
+
+          <div class="room-card">
+            <div class="room-img"><img src="img/b4.png" alt="Royal"></div>
+            <div class="room-content">
+                <h2>Royal Penthouse</h2>
+                <div class="size">300 SQM • FULL FLOOR</div>
+                <p>Infinity plunge pool and 360° skyline views</p>
+                <div class="features"><span>Three Bedrooms</span><span>Private Pool</span><span>Cinema</span></div>
+                <div class="price">From ₹6,80,000 / night</div>
+               <a href="Book.html"><button class="btn">Book Now</button></a>
+            </div>
+        </div>
+
+         <div class="room-card">
+            <div class="room-img"><img src="img/b1.png" alt="Royal"></div>
+            <div class="room-content">
+                <h2>Royal Penthouse</h2>
+                <div class="size">300 SQM • FULL FLOOR</div>
+                <p>Infinity plunge pool and 360° skyline views</p>
+                <div class="features"><span>Three Bedrooms</span><span>Private Pool</span><span>Cinema</span></div>
+                <div class="price">From ₹6,80,000 / night</div>
+               <a href="Book.html"><button class="btn">Book Now</button></a>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta">
+        <h2>Your Sanctuary Awaits</h2>
+        <p style="font-size:1.35rem; margin:25px 0 45px;">Exclusive offers • Complimentary breakfast • Late check-out</p>
+        <button class="btn" style="background:var(--gold); color:var(--deep-blue); padding:16px 65px; font-size:1.25rem;">
+            BOOK YOUR STAY
+        </button>
+    </section>
+    <!-- facilities -->
+    <section class="facilities-section">
+  <div class="facilities-container">
+
+    <!-- Header -->
+    <div class="facilities-header">
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <p class="tagline">OUR SERVICES</p>
+      <h2 class="section-title">Hotel Facilities</h2>
+    </div>
+
+    <!-- Facilities Grid -->
+    <div class="facilities-grid">
+
+      <div class="facility-item">
+        <div class="icon-wrapper">
+          <i class="fas fa-route"></i>
+        </div>
+        <p>Travel Desk (Rent Base)</p>
+      </div>
+
+      <div class="facility-item">
+        <div class="icon-wrapper">
+          <i class="fas fa-square-parking"></i>
+        </div>
+        <p>Free Parking Space</p>
+      </div>
+
+      <div class="facility-item">
+        <div class="icon-wrapper">
+          <i class="fas fa-bell-concierge"></i>
+        </div>
+        <p>24/7 Room Service</p>
+      </div>
+
+      <div class="facility-item">
+        <div class="icon-wrapper">
+          <i class="fas fa-person-swimming"></i>
+        </div>
+        <p>Swimming Pool Access</p>
+      </div>
+
+      <div class="facility-item">
+        <div class="icon-wrapper">
+          <i class="fas fa-wifi"></i>
+        </div>
+        <p>Free High-Speed WiFi</p>
+      </div>
+
+      <div class="facility-item">
+        <div class="icon-wrapper">
+          <i class="fas fa-bell"></i>
+        </div>
+        <p>24/7 Bell Desk</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+ <div id="footer-container"></div>
+<script src="script.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page title animation (after hero)
+        gsap.to(".page-title h1", { opacity:1, y:0, duration:1.2, ease:"power3.out", scrollTrigger:{ trigger:".page-title", start:"top 80%" } });
+        gsap.to(".page-title p", { opacity:1, duration:1.2, ease:"power3.out", delay:0.3, scrollTrigger:{ trigger:".page-title", start:"top 80%" } });
+
+        // Cards animation
+        gsap.utils.toArray(".room-card").forEach((card) => {
+            gsap.to(card, {
+                opacity:1, y:0, duration:1,
+                scrollTrigger: { trigger: card, start:"top 88%", toggleActions:"play none none reverse" }
+            });
+        });
+    </script>
+</body>
+</html>

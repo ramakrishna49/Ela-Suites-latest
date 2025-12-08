@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ela Suites – Premium Boutique Stay</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;500;700&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- MAIN CSS (nav, root colors, body etc) -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /********************************
+                    HERO SECTION
+        ********************************/
+
+        header {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0.6));
+            z-index: -1;
+        }
+
+        header h1 {
+            font-family: "Cinzel", serif;
+            font-size: clamp(2.8rem, 10vw, 7rem);
+            color: var(--gold);
+            letter-spacing: 12px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #444;
+            letter-spacing: 3px;
+        }
+
+
+        /********************************
+                   SECTIONS
+        ********************************/
+
+        .section {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            max-width: 1300px;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        .reverse {
+            flex-direction: row-reverse;
+        }
+
+        .text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .text h2 {
+            font-family: "Cinzel", serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--navy-light);
+            /* FIXED: removed extra space */
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .text h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 90px;
+            height: 4px;
+            background: var(--gold);
+        }
+
+        .text p {
+            font-size: 1.15rem;
+            max-width: 550px;
+            color: #444;
+        }
+
+        /* IMAGE WRAPPER - RESPONSIVE */
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            height: 420px;
+            /* smaller height for large screens */
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(212, 175, 55, 0.25);
+        }
+
+        @media (max-width: 992px) {
+            .image-wrapper {
+                max-width: 100%;
+                height: 360px;
+                /* reduced height */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 80px 5%;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+                text-align: center;
+                gap: 35px;
+            }
+
+            .image-wrapper {
+                width: 100%;
+                height: 300px;
+                /* mobile height */
+                border-radius: 18px;
+            }
+
+            .text h2 {
+                font-size: 1.8rem;
+            }
+
+            .text p {
+                font-size: 1rem;
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            .reverse {
+                flex-direction: column-reverse !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-wrapper {
+                height: 240px;
+                /* smaller for very small screens */
+            }
+
+            header h1 {
+                font-size: 2.2rem !important;
+                letter-spacing: 5px !important;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+        }
+
+
+        .image-slider img {
+            position: absolute;
+            /* REQUIRED for slider */
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .image-slider img.active {
+            opacity: 1;
+            /* Show the active image */
+        }
+
+
+        .cross-line {
+            width: 5px;
+            height: 180px;
+            position: absolute;
+            top: 100%;
+            background: linear-gradient(var(--gold), transparent);
+        }
+
+        .cross-right {
+            right: 6%;
+        }
+
+        .cross-left {
+            left: 6%;
+        }
+
+        @media(max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .reverse {
+                flex-direction: column-reverse;
+            }
+
+            .cross-line {
+                display: none;
+            }
+        }
+
+        .fade-left,
+        .fade-right,
+        .fade-up,
+        .fade-scale {
+            opacity: 0;
+        }
+
+        /* BOOKING BAR - LARGE SCREENS (ON HERO) */
+        .booking-bar-desktop {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1200px;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .booking-bar-desktop .booking-form {
+            background: rgba(0, 0, 0, 0.16);
+            backdrop-filter: blur(22px);
+            border-radius: 28px;
+            padding: 28px 40px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) 210px;
+            gap: 18px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+        }
+
+        /* BOOKING BAR - SMALL SCREENS (BELOW HERO) */
+        .booking-bar-mobile {
+            padding: 80px 5% 60px;
+            background: linear-gradient(to bottom, rgba(248, 246, 242, 0.95), #f8f6f2);
+            display: none;
+        }
+
+        .booking-bar-mobile .booking-form {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgb(255, 255, 255);
+            border-radius: 28px;
+            padding: 40px 50px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 22px;
+            box-shadow: 0 30px 90px rgba(212, 175, 55, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        /* COMMON FORM STYLES */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 20px;
+            color: goldenrod;
+            letter-spacing: 2.5px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .form-group input,
+        .form-group select {
+            background: rgba(255, 255, 255, 0.25);
+            border: none;
+            border-radius: 14px;
+            padding: 14px 18px;
+            color: rgb(0, 0, 0);
+            font-family: "Playfair Display", serif;
+            font-size: 15px;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .booking-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            border-radius: 14px;
+            padding: 16px 20px;
+            font-family: "Cinzel", serif;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .booking-btn:hover {
+            background: #e6c557;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5);
+        }
+
+        /* RESPONSIVE SWITCH */
+        @media (min-width: 992px) {
+            .booking-bar-desktop {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .booking-bar-mobile {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .booking-bar-desktop {
+                display: none !important;
+            }
+
+            .booking-bar-mobile {
+                display: block;
+            }
+
+            .booking-bar-mobile .booking-form {
+                grid-template-columns: 1fr 1fr;
+                padding: 40px;
+            }
+
+            .booking-bar-mobile .booking-btn {
+                grid-column: 1 / -1;
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .booking-bar-mobile .booking-form {
+                grid-template-columns: 1fr;
+                padding: 35px 25px;
+                border-radius: 22px;
+            }
+        }
+
+        .btn-result {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: "Cinzel", serif;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .available {
+            color: #00fb00;
+        }
+
+        .available i {
+            font-size: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .not-available {
+            color: #f80000;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* COMPACT ROOMS SECTION - HOME PAGE */
+        .rooms-preview {
+            padding: 100px 5% 120px;
+            background: #faf9f6;
+            text-align: center;
+        }
+
+        .rooms-preview .section-title h2 {
+            font-family: "Cinzel", serif;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            color: var(--navy-light);
+            margin-bottom: 16px;
+        }
+
+        .rooms-preview .accent-line {
+            width: 90px;
+            height: 4px;
+            background: var(--gold);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+
+        .rooms-preview .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto 60px;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .room-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 80px rgba(212, 175, 55, 0.25);
+        }
+
+        .room-img {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .room-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 8s ease;
+        }
+
+        .room-card:hover .room-img img {
+            transform: scale(1.1);
+        }
+
+        .room-info {
+            padding: 28px 24px;
+        }
+
+        .room-info h3 {
+            font-family: "Cinzel", serif;
+            font-size: 1.5rem;
+            color: var(--navy-light);
+            margin-bottom: 8px;
+        }
+
+        .size {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 16px 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: normal;
+            color: #888;
+        }
+
+        .view-btn {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-family: "Cinzel", serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .view-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .view-all-rooms {
+            margin-top: 20px;
+        }
+
+        .all-rooms-btn {
+            font-family: "Cinzel", serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            text-decoration: none;
+            padding: 12px 32px;
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            transition: all 0.4s;
+        }
+
+        .all-rooms-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .rooms-preview {
+                padding: 80px 5% 100px;
+            }
+
+            .rooms-grid {
+                gap: 30px;
+            }
+
+            .room-img {
+                height: 180px;
+            }
+        }
+
+
+
+        /* WHY GUESTS LOVE ELA – TESTIMONIALS + TRUST */
+        .why-ela {
+            padding: 120px 5%;
+            background: white;
+            text-align: center;
+        }
+
+        .why-ela .section-title h2 {
+            font-family: "Cinzel", serif;
+            font-size: clamp(2.6rem, 5vw, 3.8rem);
+            color: var(--navy-light);
+            margin-bottom: 16px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1300px;
+            margin: 70px auto 80px;
+        }
+
+        .testimonial-card {
+            background: #faf9f6;
+            padding: 40px 32px;
+            border-radius: 24px;
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.12);
+            transition: all 0.5s;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(212, 175, 55, 0.22);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 24px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .guest {
+            font-family: "Cinzel", serif;
+        }
+
+        .guest strong {
+            color: var(--navy-light);
+            font-size: 1.1rem;
+        }
+
+        .guest span {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge img {
+            height: 48px;
+        }
+
+        .badge span {
+            font-size: 15px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .why-ela {
+                padding: 90px 5%;
+            }
+
+            .trust-badges {
+                gap: 40px;
+            }
+        }
+
+
+
+        /* FINAL DIRECT BOOKING CTA */
+        .direct-cta {
+            position: relative;
+            padding: 160px 5%;
+            background: linear-gradient(rgba(11, 26, 59, 0.95), rgba(11, 26, 59, 0.98)),
+                url('img/hero-still.jpg') center/cover no-repeat fixed;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .direct-cta h2 {
+            font-family: "Cinzel", serif;
+            font-size: clamp(3.2rem, 7vw, 5.5rem);
+            color: var(--gold);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.4rem;
+            color: #f9b145;
+            margin: 24px 0 50px;
+            letter-spacing: 1.5px;
+        }
+
+        .cta-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 60px 0;
+            font-size: 1.15rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .feature i {
+            color: var(--gold);
+            font-size: 24px;
+        }
+
+        .cta-buttons {
+            margin: 50px 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-call,
+        .btn-inquiry {
+            padding: 18px 44px;
+            border-radius: 50px;
+            font-family: "Cinzel", serif;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.5s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-call {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .btn-call:hover {
+            background: #e6c557;
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-inquiry {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-inquiry:hover {
+            background: white;
+            color: #000;
+            transform: translateY(-6px);
+        }
+
+        .disclaimer {
+            margin-top: 40px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .disclaimer strong {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .direct-cta {
+                padding: 120px 5%;
+            }
+
+            .cta-features {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-call,
+            .btn-inquiry {
+                width: 280px;
+                justify-content: center;
+            }
+        }
+
+
+        .faq-section {
+            padding: 140px 5%;
+            background: #faf9f6;
+            text-align: center;
+        }
+
+        .faq-section h2 {
+            font-family: "Cinzel", serif;
+            font-size: clamp(2.8rem, 5vw, 4rem);
+            color: var(--navy-light);
+            margin-bottom: 16px;
+        }
+
+        .accent-line {
+            width: 90px;
+            height: 4px;
+            background: var(--gold);
+            margin: 0 auto 60px;
+            border-radius: 2px;
+            display: block;
+        }
+
+        .faq-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.12);
+        }
+
+        .faq-q {
+            padding: 28px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: white;
+        }
+
+        .faq-q h3 {
+            font-size: 1.22rem;
+            color: var(--navy-light);
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .toggle-icon {
+            font-size: 26px;
+            color: var(--gold);
+            transition: transform 0.4s;
+        }
+
+        .faq-item.active .toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 32px;
+            background: #f8f6f2;
+            transition: all 0.6s ease;
+        }
+
+        .faq-item.active .faq-a {
+            max-height: 300px;
+            padding: 24px 32px;
+        }
+
+        .faq-a p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .faq-cta p {
+            font-size: 1.3rem;
+            color: #666;
+            margin: 50px 0 20px;
+        }
+
+        .faq-btn {
+            background: var(--gold);
+            color: #000;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-family: "Cinzel", serif;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.4s;
+        }
+
+        .faq-btn:hover {
+            background: #e6c557;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .faq-section {
+                padding: 100px 5%;
+            }
+
+            .faq-q {
+                padding: 24px;
+            }
+
+            .faq-q h3 {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+
+
+    <!-- NAVBAR WITH FLIP-TO-X ICON (PERFECT) -->
+    <div class="nav-wrapper">
+        <div class="logo">
+            <img src="img/main-logo.png" alt="Ela Suites">
+        </div>
+
+        <div class="menu-container">
+            <div class="menu-item active" data-link="index.html"><span class="num">1</span>&nbsp;<span
+                    class="label">Home</span></div>
+            <div class="menu-item" data-link="about.html"><span class="num">2</span>&nbsp;<span
+                    class="label">About</span></div>
+            <div class="menu-item" data-link="rooms.html"><span class="num">3</span>&nbsp;<span
+                    class="label">Rooms</span></div>
+            <div class="menu-item" data-link="gallery.html"><span class="num">4</span>&nbsp;<span
+                    class="label">Gallery</span></div>
+            <div class="menu-item " data-link="contact.html"><span class="num">5</span>&nbsp;<span
+                    class="label">Contact</span></div>
+
+           <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
+        </div>
+
+        <!-- Mobile Toggle with Flip X Animation -->
+        <div class="mobile-toggle" id="mobileToggle">
+            <i class="bi bi-list"></i>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="Book.html" class="mobile-book-now">Book Now ↗</a>
+    </div>
+
+    <!---------------------------------------
+                    HERO
+---------------------------------------->
+    <header id="home">
+        <video id="hero-video" autoplay muted loop playsinline>
+            <source src="img/WhatsApp Video 2025-12-06 at 13.24.15_85a1271c.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+            <h1 style="font-weight:bolder;">ELA SUITES</h1>
+            <p>COMFORT • CONNECTIVITY • COMMUNITY</p>
+        </div>
+
+        <!-- BOOKING BAR - VISIBLE ONLY ON LARGE SCREENS -->
+        <div class="booking-bar-desktop">
+            <div class="booking-form">
+                <div class="form-group"><label>Check-in</label><input type="date" id="checkin-desktop" required></div>
+                <div class="form-group"><label>Check-out</label><input type="date" id="checkout-desktop" required></div>
+                <div class="form-group"><label>Adults</label><select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4+</option>
+                    </select></div>
+                <div class="form-group"><label>Children</label><select>
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3+</option>
+                    </select></div>
+                <div class="form-group"><label>Rooms</label><select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3+</option>
+                    </select></div>
+                <button type="button" class="booking-btn" id="check-availability-btn">
+                    <span class="btn-text">CHECK AVAILABILITY</span>
+                    <span class="btn-result" style="display:none;"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BOOKING BAR BELOW HERO - VISIBLE ONLY ON MOBILE/TABLET -->
+    <section class="booking-bar-mobile">
+        <div class="booking-form">
+            <div class="form-group"><label>Check-in</label><input type="date" id="checkin-mobile" required></div>
+            <div class="form-group"><label>Check-out</label><input type="date" id="checkout-mobile" required></div>
+            <div class="form-group"><label>Adults</label><select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4+</option>
+                </select></div>
+            <div class="form-group"><label>Children</label><select>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3+</option>
+                </select></div>
+            <div class="form-group"><label>Rooms</label><select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3+</option>
+                </select></div>
+            <button type="button" class="booking-btn" id="check-availability-btn">
+                <span class="btn-text">CHECK AVAILABILITY</span>
+                <span class="btn-result" style="display:none;"></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- COMPACT ROOMS SECTION ON HOME PAGE -->
+    <section class="rooms-preview">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Rooms</h2>
+                <span class="accent-line"></span>
+                <p class="subtitle">Compact luxury starting at just</p>
+            </div>
+
+            <div class="rooms-grid">
+                <!-- Room 1 -->
+                <div class="room-card">
+                    <div class="room-img">
+                        <img src="img/b1.png" alt="Premium Room">
+                    </div>
+                    <div class="room-info">
+                        <h3>Premium Room</h3>
+                        <p class="size">155 sq.ft • King Bed</p>
+                        <div class="price">₹4,999 <span>/ night</span></div>
+                        <button class="view-btn">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Room 2 -->
+                <div class="room-card">
+                    <div class="room-img">
+                        <img src="img/b2.png" alt="Deluxe Suite">
+                    </div>
+                    <div class="room-info">
+                        <h3>Deluxe Suite</h3>
+                        <p class="size">180 sq.ft • Work Desk</p>
+                        <div class="price">₹5,999 <span>/ night</span></div>
+                        <button class="view-btn">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Room 3 -->
+                <div class="room-card">
+                    <div class="room-img">
+                        <img src="img/b4.png" alt="Executive Suite">
+                    </div>
+                    <div class="room-info">
+                        <h3>Executive Suite</h3>
+                        <p class="size">210 sq.ft • Lounge Access</p>
+                        <div class="price">₹7,999 <span>/ night</span></div>
+                        <button class="view-btn">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-all-rooms">
+                <a href="rooms.html" class="all-rooms-btn">View All Rooms →</a>
+            </div>
+        </div>
+    </section>
+    <!---------------------------------------
+                RECEPTION SECTION
+    ---------------------------------------->
+    <section class="section" id="reception">
+        <div class="content-wrapper">
+            <div class="text fade-left">
+                <h2>Grand Double-Height Reception</h2>
+                <p>A warm, airy welcome the moment you arrive. The double-height lobby features premium finishes,
+                    natural light and a calm, spacious ambience.</p>
+                <p>Guests experience an immediate sense of comfort, elegance and efficiency designed for modern city
+                    living.</p>
+                <p>Perfect for business travellers, families and long-stay guests seeking a refined first impression.
+                </p>
+
+            </div>
+
+            <div class="image-wrapper fade-right">
+                <div class="image-slider">
+                    <img src="img/Scene 1_3.png" class="active">
+                    <img src="img/Scene 2_3.png">
+                    <img src="img/Scene 3_3.png">
+                    <img src="img/Scene 5_3.png">
+                </div>
+            </div>
+        </div>
+
+        <div class="cross-line cross-right"></div>
+    </section>
+
+
+    <!---------------------------------------
+                CORRIDOR SECTION
+    ---------------------------------------->
+    <section class="section">
+        <div class="content-wrapper reverse">
+            <div class="text fade-right">
+                <h2>Wide, Well-Lit Corridors</h2>
+                <p>Wide, well-lit corridors designed for smooth movement and a feeling of safety.</p>
+                <p>Premium lighting and clean, modern finishes make circulation areas feel bright and inviting.</p>
+                <p>Ideal for seniors, families with children and guests carrying luggage.</p>
+
+            </div>
+
+            <div class="image-wrapper fade-left">
+                <div class="image-slider">
+                    <img src="img/c1.png" class="active">
+                    <img src="img/c2.png">
+                    <img src="img/c3.png">
+                    <img src="img/c4.png">
+                </div>
+            </div>
+        </div>
+
+        <div class="cross-line cross-left"></div>
+    </section>
+
+
+    <!---------------------------------------
+                    BEDROOM SECTION
+    ---------------------------------------->
+    <section class="section">
+        <div class="content-wrapper">
+            <div class="text fade-left">
+                <h2>Compact. Clever. Comfortable.</h2>
+                <p>Each compact room is intelligently planned to maximize comfort and functionality.</p>
+                <p>Smart layout ensures separate zones for sleep, work and storage within 155 sq.ft.</p>
+                <p>Perfect for short stays, long-stays and remote working professionals.</p>
+
+            </div>
+
+            <div class="image-wrapper fade-right">
+                <div class="image-slider">
+                    <img src="img/b1.png" class="active">
+                    <img src="img/b2.png">
+                    <img src="img/b3.png">
+                    <img src="img/b4.png">
+                </div>
+            </div>
+        </div>
+
+        <div class="cross-line cross-right"></div>
+    </section>
+
+
+    <!---------------------------------------
+              CAFETERIA SECTION
+    ---------------------------------------->
+    <section class="section">
+        <div class="content-wrapper reverse">
+            <div class="text fade-right">
+                <h2>All-Day Café & Work Lounge</h2>
+                <p>An all-day café designed for dining, coworking and casual meetings.</p>
+                <p>Equipped with a modern kitchen, warm lighting and comfortable seating layouts.</p>
+                <p>A perfect blend of relaxation and productivity for guests throughout the day.</p>
+
+            </div>
+
+            <div class="image-wrapper fade-left">
+                <div class="image-slider">
+                    <img src="img/cafe1.png" class="active">
+                    <img src="img/cafe2.png">
+                    <img src="img/cafe3.png">
+                    <img src="img/cafe4.png">
+                </div>
+            </div>
+        </div>
+
+        <div class="cross-line cross-left"></div>
+    </section>
+
+
+    <!---------------------------------------
+                  TERRACE SECTION
+    ---------------------------------------->
+    <section class="section">
+        <div class="content-wrapper">
+            <div class="text fade-left">
+                <h2>Terrace – Work, Dine, Unwind</h2>
+                <p>A multi-use open-air terrace crafted for evening relaxation, small gatherings and outdoor work.</p>
+                <p>Beautiful ambient lighting creates the perfect vibe from sunrise coffee to sunset conversations.</p>
+                <p>Ideal for guests who enjoy fresh air and community spaces.</p>
+
+            </div>
+
+            <div class="image-wrapper fade-scale">
+                <div class="image-slider">
+                    <img src="img/t3.png" class="active">
+                    <img src="img/t2.png">
+                    <img src="img/t1.png">
+                </div>
+            </div>
+        </div>
+
+        <div class="cross-line cross-right"></div>
+    </section>
+
+
+    <!-- WHY GUESTS LOVE ELA – TESTIMONIALS + TRUST BADGES -->
+    <section class="why-ela">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Guests Love Ela</h2>
+                <span class="accent-line"></span>
+            </div>
+
+            <div class="why-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Best stay in Hyderabad for work trips. Super clean, fast Wi-Fi, and the café is
+                        open 24/7. Already booked my next 3 months!"</p>
+                    <div class="guest">
+                        <strong>Rahul Sharma</strong> <span>— Senior Manager, Deloitte</span>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Perfect for long stays. The team feels like family, and the terrace is my new
+                        favorite work spot."</p>
+                    <div class="guest">
+                        <strong>Priya Menon</strong> <span>— Software Engineer, Google</span>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Location is unbeatable — 5 mins from office, metro, and Inorbit mall. Will
+                        definitely come back."</p>
+                    <div class="guest">
+                        <strong>Arjun Reddy</strong> <span>— Startup Founder</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="badge">
+                    <img src="https://img.icons8.com/color/48/000000/google-reviews.png" alt="4.9 on Google">
+                    <span>4.9 / 5 on Google</span>
+                </div>
+                <div class="badge">
+                    <img src="https://img.icons8.com/fluency/48/000000/booking-com.png" alt="Booking.com">
+                    <span>9.2 / 10 on Booking.com</span>
+                </div>
+                <div class="badge">
+                    <span style="font-size:48px;color:var(--gold);">100%</span>
+                    <span>Power Backup & Wi-Fi</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FINAL DIRECT BOOKING CTA – LIMITED KEYS -->
+    <section class="direct-cta">
+        <div class="cta-overlay"></div>
+        <div class="container">
+            <div class="cta-content">
+                <h2>Limited Keys.<br>Book Direct for Best Rates.</h2>
+                <p class="cta-subtitle">
+                    Only 39 suites • Personal service • No hidden fees
+                </p>
+                <div class="cta-features">
+                    <div class="feature">
+                        <i class="bi bi-check-circle-fill"></i> Best Price Guaranteed
+                    </div>
+                    <div class="feature">
+                        <i class="bi bi-check-circle-fill"></i> Free High-Speed Wi-Fi
+                    </div>
+                    <div class="feature">
+                        <i class="bi bi-check-circle-fill"></i> Complimentary Breakfast
+                    </div>
+                    <div class="feature">
+                        <i class="bi bi-check-circle-fill"></i> Flexible Cancellation
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="tel:+919876543210" class="btn-call">
+                        <i class="bi bi-telephone-fill"></i> Call to Book
+                    </a>
+                    <a href="contact.html" class="btn-inquiry">
+                        Send Inquiry
+                    </a>
+                </div>
+                <p class="disclaimer">
+                    Booking direct saves you up to <strong>₹1,200 per night</strong> vs OTAs
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15 FAQs – GUARANTEED VISIBLE & WORKING -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <span class="accent-line"></span>
+            </div>
+
+            <div class="faq-grid">
+                <!-- 1 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>What are check-in and check-out times?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Check-in: <strong>2:00 PM</strong> onwards • Check-out: <strong>12:00 PM</strong><br>Early
+                            check-in & late check-out available on request.</p>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Is breakfast included?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — complimentary continental or Indian breakfast served daily in our all-day café.</p>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Do you offer airport transfers?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — ₹1,500 one way (Innova Crysta) from Rajiv Gandhi International Airport.</p>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Is parking available?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Free covered parking for all guests (first-come, first-served).</p>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Are long-stay / monthly rates available?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes! Special discounted rates for 15+ nights and monthly stays with housekeeping & laundry
+                            credits.</p>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Can I work remotely from the property?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — high-speed Wi-Fi, power sockets everywhere, all-day café & terrace perfect for remote
+                            work.</p>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Is there a gym?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — 480 sq.ft fitness centre open 6 AM – 10 PM.</p>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Are pets allowed?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Small pets (&lt;10 kg) welcome with ₹1,000/night fee and prior approval.</p>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>What payment methods do you accept?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>UPI, Cards, Google Pay, PhonePe, Paytm, Net Banking & Cash.</p>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Is there 24-hour front desk?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — our team is available 24×7.</p>
+                    </div>
+                </div>
+
+                <!-- 11 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Do you have laundry service?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — same-day laundry & dry cleaning available.</p>
+                    </div>
+                </div>
+
+                <!-- 12 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Is it safe for solo female travellers?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>100% — CCTV, 24-hour security, well-lit areas, female staff on duty.</p>
+                    </div>
+                </div>
+
+                <!-- 13 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Can I get an extra bed?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — ₹1,000 per night (max 1 extra bed per room).</p>
+                    </div>
+                </div>
+
+                <!-- 14 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>What is the cancellation policy?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Free cancellation up to 48 hours before arrival. Within 48 hours: 1 night charge.</p>
+                    </div>
+                </div>
+
+                <!-- 15 -->
+                <div class="faq-item">
+                    <div class="faq-q">
+                        <h3>Do you offer corporate rates?</h3>
+                        <i class="bi bi-plus-lg toggle-icon"></i>
+                    </div>
+                    <div class="faq-a">
+                        <p>Yes — special rates for companies with 10+ nights/month. Ask for LTA agreement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-cta">
+                <p>Still have questions?</p>
+                <a href="contact.html" class="faq-btn">Get in Touch →</a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+    <script src="script.js"></script>
+
+    <!---------------------------------------
+                GSAP + NAV SCRIPT
+    ---------------------------------------->
+    <script>
+        /* NAV REDIRECT */
+        document.querySelectorAll(".menu-item").forEach(item => {
+            item.addEventListener("click", () => {
+                let page = item.dataset.link;
+                if (page) window.location.href = page;
+            });
+        });
+
+       
+
+        /* GSAP */
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from("header div", { y: 150, opacity: 0, duration: 2 });
+
+        /* IMAGE SLIDER ON SCROLL */
+        document.querySelectorAll('.image-wrapper').forEach(wrapper => {
+            const images = wrapper.querySelectorAll("img");
+            let current = 0;
+
+            ScrollTrigger.create({
+                trigger: wrapper,
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1,
+                onUpdate: (self) => {
+                    const index = Math.min(Math.floor(self.progress * images.length), images.length - 1);
+                    if (index !== current) {
+                        images[current].classList.remove("active");
+                        images[index].classList.add("active");
+                        current = index;
+                    }
+                }
+            });
+        });
+
+        /* ===============================
+    FIXED GSAP ANIMATIONS (MOBILE FRIENDLY)
+ ================================*/
+
+        const isMobile = window.innerWidth < 768;
+
+        gsap.utils.toArray(".fade-left").forEach(el => {
+            gsap.fromTo(el,
+                { x: isMobile ? 0 : -80, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: isMobile ? "top 95%" : "top 85%",
+                    },
+                    x: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power3.out"
+                }
+            );
+        });
+
+        gsap.utils.toArray(".fade-right").forEach(el => {
+            gsap.fromTo(el,
+                { x: isMobile ? 0 : 80, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: isMobile ? "top 95%" : "top 85%",
+                    },
+                    x: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power3.out"
+                }
+            );
+        });
+
+        gsap.utils.toArray(".fade-up").forEach(el => {
+            gsap.fromTo(el,
+                { y: isMobile ? 0 : 80, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: isMobile ? "top 98%" : "top 90%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.1,
+                    ease: "power3.out"
+                }
+            );
+        });
+
+        gsap.utils.toArray(".fade-scale").forEach(el => {
+            gsap.fromTo(el,
+                { scale: isMobile ? 1 : 0.9, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: isMobile ? "top 98%" : "top 85%",
+                    },
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1.3,
+                    ease: "power2.out"
+                }
+            );
+        });
+
+    </script>
+    <script>
+        // Animate desktop booking bar
+        gsap.to(".booking-bar-desktop", {
+            y: 0,
+            opacity: 1,
+            duration: 1.6,
+            delay: 1.2,
+            ease: "power3.out"
+        });
+
+        // Animate mobile booking bar
+        gsap.to(".booking-bar-mobile .booking-form", {
+            y: 0,
+            opacity: 1,
+            duration: 1.6,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".booking-bar-mobile",
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Sync check-in/out dates
+        document.querySelectorAll("#checkin-desktop, #checkin-mobile").forEach(el => {
+            el.addEventListener("change", () => {
+                const val = el.value;
+                document.querySelectorAll("#checkout-desktop, #checkout-mobile").forEach(out => out.min = val);
+            });
+        });
+    </script>
+    <script>
+        // DATE VALIDATION – NO PAST DATES + CHECK-OUT ≥ CHECK-IN
+        const today = new Date().toISOString().split("T")[0]; // Today's date in YYYY-MM-DD
+
+        // All check-in fields (desktop + mobile)
+        document.querySelectorAll("#checkin-desktop, #checkin-mobile").forEach(checkin => {
+            checkin.min = today; // Disable past dates
+            checkin.value = today; // Optional: auto-set today
+
+            checkin.addEventListener("change", function () {
+                const selectedDate = this.value;
+
+                // Update all check-out fields
+                document.querySelectorAll("#checkout-desktop, #checkout-mobile").forEach(checkout => {
+                    checkout.min = selectedDate; // Checkout cannot be before check-in
+                    // If current checkout is invalid, clear or move it
+                    if (checkout.value && checkout.value < selectedDate) {
+                        checkout.value = "";
+                    }
+                });
+            });
+        });
+
+        // All check-out fields – also block past dates
+        document.querySelectorAll("#checkout-desktop, #checkout-mobile").forEach(checkout => {
+            checkout.min = today;
+
+            checkout.addEventListener("change", function () {
+                const checkinFields = document.querySelectorAll("#checkin-desktop, #checkin-mobile");
+                let checkinDate = "";
+
+                // Find the selected check-in date
+                checkinFields.forEach(field => {
+                    if (field.value) checkinDate = field.value;
+                });
+
+                // If checkout is before check-in, reset it
+                if (checkinDate && this.value < checkinDate) {
+                    alert("Check-out date cannot be earlier than check-in date.");
+                    this.value = "";
+                }
+            });
+        });
+
+        // Optional: Auto-sync both forms (so desktop/mobile stay in sync)
+        document.querySelectorAll("input[type='date'], select").forEach(input => {
+            input.addEventListener("change", function () {
+                const name = this.id.replace("-desktop", "").replace("-mobile", "");
+                const value = this.value;
+
+                // Sync desktop ↔ mobile
+                const desktopField = document.getElementById(name + "-desktop");
+                const mobileField = document.getElementById(name + "-mobile");
+
+                if (desktopField && this.id.includes("mobile")) desktopField.value = value;
+                if (mobileField && this.id.includes("desktop")) mobileField.value = value;
+            });
+        });
+    </script>
+    <script>
+        // CHECK AVAILABILITY BUTTON LOGIC
+        document.getElementById("check-availability-btn").addEventListener("click", function () {
+            const btn = this;
+            const resultSpan = btn.querySelector(".btn-result");
+            const originalText = btn.querySelector(".btn-text");
+
+            // Get values (works for both desktop & mobile)
+            const checkin = document.querySelector("#checkin-desktop, #checkin-mobile").value;
+            const checkout = document.querySelector("#checkout-desktop, #checkout-mobile").value;
+
+            // Basic validation
+            if (!checkin || !checkout) {
+                alert("Please select both check-in and check-out dates.");
+                return;
+            }
+
+            if (checkout <= checkin) {
+                alert("Check-out date must be after check-in date.");
+                return;
+            }
+
+            // Show loading state
+            originalText.textContent = "Checking...";
+            resultSpan.style.display = "none";
+
+            // SIMULATE AVAILABILITY CHECK (Replace this with real API later)
+            setTimeout(() => {
+                // Random result for demo (50% chance available)
+                const isAvailable = Math.random() > 0.5;
+
+                originalText.style.display = "none";
+                resultSpan.style.display = "flex";
+                resultSpan.innerHTML = isAvailable
+                    ? '<i class="bi bi-check-circle-fill"></i> Rooms Available!'
+                    : '<i class="bi bi-x-circle-fill"></i> No rooms available';
+
+                resultSpan.className = "btn-result " + (isAvailable ? "available" : "not-available");
+
+                // Optional: Auto-scroll to contact form if not available
+                if (!isAvailable) {
+                    setTimeout(() => {
+                        document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                    }, 2000);
+                }
+
+            }, 1200); // Simulated delay
+        });
+    </script>
+
+    <script>
+        // Animate rooms on scroll
+        gsap.utils.toArray(".room-card").forEach((card, i) => {
+            gsap.to(card, {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                delay: i * 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+    <script>
+        // Animate testimonials
+        gsap.utils.toArray(".testimonial-card").forEach((card, i) => {
+            gsap.to(card, {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                delay: i * 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Final CTA animation
+        gsap.from(".cta-content > *", {
+            y: 100,
+            opacity: 0,
+            duration: 1.6,
+            stagger: 0.2,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: ".direct-cta",
+                start: "top 70%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+
+    </script>
+
+    <script>
+        // FAQ Accordion – 100% WORKING
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Animation on scroll
+        gsap.from(".faq-item", {
+            y: 80, opacity: 0, duration: 1.2, stagger: 0.1, ease: "power3.out",
+            scrollTrigger: { trigger: ".faq-section", start: "top 75%" }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <!-- LEFT: LOGO + TEXT -->
+        <div class="footer-logo">
+            <img src="img/main-logo.jpeg" alt="Logo">
+            <p>ELA SUITES — Comfort • Connectivity • Community</p>
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="footer-contact">
+            <h3>Contact</h3>
+            <p>📍 HITEC City, Hyderabad</p>
+            <p>☎ +91 98765 43210</p>
+            <p>✉ info@elasuites.com</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2025 Ela Suites. Designed with @ GiggleZen Technologies.
+    </div>
+
+</footer>
+
+<!-- FOOTER CSS -->
+<style>
+.footer {
+    background: #1e3154;   /* Navy Blue */
+    color: #fff;
+    padding: 60px 10%;
+   
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-logo img {
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.footer-logo p {
+    max-width: 260px;
+    color: #d9d9d9;
+    font-size: 0.95rem;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+    color: #d4af37; /* Gold */
+    margin-bottom: 12px;
+    font-size: 1.2rem !important;
+}
+
+.footer-links a {
+    display: block;
+    color: #d9d9d9;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: .3s !important;
+}
+
+.footer-links a:hover {
+    color: #d4af37;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        height: 70px;
+    }
+}
+
+/* PREVENT DARK OVERLAY FROM AFFECTING FOOTER */
+#footer-container {
+    position: relative;
+    z-index: 10;                    /* brings footer above the dark overlay */
+    background: white;             /* forces clean white background */
+   
+   
+}
+
+
+</style>
