@@ -498,7 +498,7 @@
             <div class="menu-item active" data-link="contact.html"><span class="num">5</span>&nbsp;<span
                     class="label">Contact</span></div>
 
-           <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
+            <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
         </div>
 
         <!-- Mobile Toggle with Flip X Animation -->
@@ -565,8 +565,15 @@
                     </div>
                 </div>
 
-                <div class="field"><label>CHECK-IN DATE *</label><input type="date" required></div>
-                <div class="field"><label>CHECK-OUT DATE *</label><input type="date" required></div>
+                <div class="field">
+    <label>CHECK-IN DATE *</label>
+    <input type="date" id="checkInDate" required>
+</div>
+
+<div class="field">
+    <label>CHECK-OUT DATE *</label>
+    <input type="date" id="checkOutDate" required>
+</div>
 
                 <div class="field"><label>ADULTS *</label>
                     <select required>
@@ -671,10 +678,42 @@
         </div>
 
     </div>
-<div id="cursor-trail"></div>
+    <div id="cursor-trail"></div>
     <script src="script.js"></script>
+
 
     <div id="footer-container"></div>
 </body>
+
+<script>
+    const checkIn = document.getElementById("checkInDate");
+    const checkOut = document.getElementById("checkOutDate");
+
+    // Get today's date (YYYY-MM-DD)
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let minDate = today.toISOString().split("T")[0];
+
+    // Apply min to both
+    checkIn.min = minDate;
+    checkOut.min = minDate;
+
+    // When check-in changes
+    checkIn.addEventListener("change", () => {
+        let selectedIn = new Date(checkIn.value);
+        selectedIn.setHours(0, 0, 0, 0);
+
+        let nextDay = new Date(selectedIn);
+        nextDay.setDate(selectedIn.getDate() + 1);
+        
+        // Checkout cannot be before next day
+        checkOut.min = nextDay.toISOString().split("T")[0];
+
+        if (checkOut.value < checkOut.min) {
+            checkOut.value = "";
+        }
+    });
+</script>
+
 
 </html>
