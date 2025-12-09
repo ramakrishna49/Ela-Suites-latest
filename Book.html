@@ -25,6 +25,7 @@
       --card-bg: #ffffff;
       --border-soft: #e5ddcc;
       --text-muted: #6f6f6f;
+      --error: #c0392b;
     }
 
     body {
@@ -134,14 +135,13 @@
     }
 
     /* LAYOUT */
-   .booking-layout {
-    padding: 40px 7% 0;
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) 340px;
-    gap: 26px;
-    align-items: start;
-}
-
+    .booking-layout {
+      padding: 40px 7% 0;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) 340px;
+      gap: 26px;
+      align-items: start;
+    }
 
     .card {
       background: var(--card-bg);
@@ -186,6 +186,7 @@
       font-size: 0.95rem;
       outline: none;
       background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .form-control:focus,
@@ -337,18 +338,20 @@
       color: var(--text-muted);
     }
 
-   .summary {
-    position: sticky;
-    top: 100px; 
-    height: max-content;
-    padding: 32px;
-    border-radius: 22px;
-    background: #fff;
-    border: 1px solid #e7dcc6;
-    box-shadow: 0 22px 60px rgba(0,0,0,0.14);
-}
+    .sticky-wrapper {
+      position: relative;
+    }
 
-
+    .summary {
+      position: sticky;
+      top: 100px;
+      height: max-content;
+      padding: 32px;
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid #e7dcc6;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.14);
+    }
 
     .summary-title {
       font-family: "Playfair Display", serif;
@@ -405,7 +408,52 @@
       font-size: 1.9rem;
     }
 
-    /* RESPONSIVE */
+    /* Error styles */
+    .error-msg {
+      font-size: 0.78rem;
+      color: var(--error);
+      margin-top: 3px;
+      min-height: 14px;
+    }
+
+    .invalid {
+      border-color: var(--error) !important;
+      box-shadow: 0 0 0 1px rgba(192, 57, 43, 0.25);
+    }
+
+    /* Button shake */
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-4px);
+      }
+
+      50% {
+        transform: translateX(4px);
+      }
+
+      75% {
+        transform: translateX(-4px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .btn-shake {
+      animation: shake 0.35s linear;
+    }
+
+    .success-msg {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: #1e7e34;
+    }
+
     @media (max-width: 992px) {
       .booking-layout {
         grid-template-columns: minmax(0, 1fr);
@@ -424,10 +472,6 @@
         padding: 32px 6% 0;
       }
     }
-    .sticky-wrapper {
-    position: relative;
-}
-
 
     @media (max-width: 640px) {
       main {
@@ -447,42 +491,41 @@
 
 <body>
 
-  <!-- NAVBAR WITH FLIP-TO-X ICON (PERFECT) -->
-    <div class="nav-wrapper">
-        <div class="logo">
-            <img src="img/main-logo.png" alt="Ela Suites">
-        </div>
-
-        <div class="menu-container">
-            <div class="menu-item " data-link="index.html"><span class="num">1</span>&nbsp;<span
-                    class="label">Home</span></div>
-            <div class="menu-item" data-link="about.html"><span class="num">2</span>&nbsp;<span
-                    class="label">About</span></div>
-            <div class="menu-item" data-link="rooms.html"><span class="num">3</span>&nbsp;<span
-                    class="label">Rooms</span></div>
-            <div class="menu-item" data-link="gallery.html"><span class="num">4</span>&nbsp;<span
-                    class="label">Gallery</span></div>
-            <div class="menu-item " data-link="contact.html"><span class="num">5</span>&nbsp;<span
-                    class="label">Contact</span></div>
-
-           <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
-        </div>
-
-        <!-- Mobile Toggle with Flip X Animation -->
-        <div class="mobile-toggle" id="mobileToggle">
-            <i class="bi bi-list"></i>
-        </div>
+  <!-- NAVBAR (from your project) -->
+  <div class="nav-wrapper">
+    <div class="logo">
+      <img src="img/main-logo.png" alt="Ela Suites">
     </div>
 
-    <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">       
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="rooms.html">Rooms</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="contact.html">Contact</a>
-        <a href="Book.html" class="mobile-book-now">Book Now ↗</a>
+    <div class="menu-container">
+      <div class="menu-item" data-link="index.html"><span class="num">1</span>&nbsp;<span class="label">Home</span>
+      </div>
+      <div class="menu-item" data-link="about.html"><span class="num">2</span>&nbsp;<span class="label">About</span>
+      </div>
+      <div class="menu-item" data-link="rooms.html"><span class="num">3</span>&nbsp;<span class="label">Rooms</span>
+      </div>
+      <div class="menu-item" data-link="gallery.html"><span class="num">4</span>&nbsp;<span
+          class="label">Gallery</span></div>
+      <div class="menu-item" data-link="contact.html"><span class="num">5</span>&nbsp;<span
+          class="label">Contact</span></div>
+
+      <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
     </div>
+
+    <div class="mobile-toggle" id="mobileToggle">
+      <i class="bi bi-list"></i>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="Book.html" class="mobile-book-now">Book Now ↗</a>
+  </div>
 
   <main>
     <!-- HERO -->
@@ -523,30 +566,34 @@
           <div class="grid-2">
             <div>
               <label for="checkin">Check-in</label>
-              <input type="date" id="checkin" class="form-control" required>
+              <input type="date" id="checkin" class="form-control">
+              <div class="error-msg" id="errCheckin"></div>
             </div>
             <div>
               <label for="checkout">Check-out</label>
-              <input type="date" id="checkout" class="form-control" required>
+              <input type="date" id="checkout" class="form-control">
+              <div class="error-msg" id="errCheckout"></div>
             </div>
             <div>
               <label for="guests">Guests</label>
-              <select id="guests" class="form-select" required>
-                <option value="" disabled selected>Choose...</option>
+              <select id="guests" class="form-select">
+                <option value="">Choose...</option>
                 <option>1 Guest</option>
                 <option>2 Guests</option>
                 <option>3 Guests</option>
                 <option>4 Guests</option>
               </select>
+              <div class="error-msg" id="errGuests"></div>
             </div>
             <div>
               <label for="rooms">Rooms</label>
-              <select id="rooms" class="form-select" required>
-                <option value="" disabled selected>Choose...</option>
+              <select id="rooms" class="form-select">
+                <option value="">Choose...</option>
                 <option>1 Room</option>
                 <option>2 Rooms</option>
                 <option>3 Rooms</option>
               </select>
+              <div class="error-msg" id="errRooms"></div>
             </div>
           </div>
 
@@ -558,7 +605,7 @@
             </div>
           </div>
 
-          <button class="btn-main" id="toStep2">
+          <button class="btn-main" id="toStep2" type="button">
             Continue to Rooms <i class="bi bi-arrow-right"></i>
           </button>
         </div>
@@ -569,7 +616,6 @@
           <div class="step-count">Step 2 of 3</div>
 
           <div class="room-list">
-
             <div class="room-card" data-room="Compact Suite" data-price="4999">
               <div class="room-img-wrap">
                 <img src="img/b1.png" alt="Compact Suite">
@@ -628,11 +674,13 @@
             </div>
           </div>
 
+          <div class="error-msg" id="errRoom"></div>
+
           <div class="btn-row">
-            <button class="btn-secondary" id="backTo1">
+            <button class="btn-secondary" id="backTo1" type="button">
               <i class="bi bi-arrow-left"></i> Back to Dates
             </button>
-            <button class="btn-main" id="toStep3">
+            <button class="btn-main" id="toStep3" type="button">
               Continue to Guest Details <i class="bi bi-arrow-right"></i>
             </button>
           </div>
@@ -646,30 +694,36 @@
           <div class="grid-2">
             <div>
               <label for="fname">First Name</label>
-              <input type="text" id="fname" class="form-control" required>
+              <input type="text" id="fname" class="form-control">
+              <div class="error-msg" id="errFname"></div>
             </div>
             <div>
               <label for="lname">Last Name</label>
-              <input type="text" id="lname" class="form-control" required>
+              <input type="text" id="lname" class="form-control">
+              <div class="error-msg" id="errLname"></div>
             </div>
             <div>
               <label for="email">Email</label>
-              <input type="email" id="email" class="form-control" required>
+              <input type="email" id="email" class="form-control">
+              <div class="error-msg" id="errEmail"></div>
             </div>
             <div>
               <label for="phone">Phone</label>
-              <input type="tel" id="phone" class="form-control" pattern="[0-9]{10}" required>
+              <input type="tel" id="phone" class="form-control">
+              <div class="error-msg" id="errPhone"></div>
             </div>
           </div>
 
           <div class="btn-row">
-            <button class="btn-secondary" id="backTo2">
+            <button class="btn-secondary" id="backTo2" type="button">
               <i class="bi bi-arrow-left"></i> Back to Rooms
             </button>
-            <button class="btn-main" id="payNow">
+            <button class="btn-main" id="payNow" type="button">
               Proceed to Payment <i class="bi bi-credit-card-2-front"></i>
             </button>
           </div>
+
+          <div class="success-msg" id="successMsg"></div>
         </div>
       </div>
 
@@ -677,12 +731,10 @@
       <aside class="summary card">
         <div class="summary-title">Booking Summary</div>
 
-        <!-- Room Image -->
         <div class="summary-image-box">
           <img id="summaryImg" src="img/Scene 1_3.png" alt="Selected Room">
         </div>
 
-        <!-- Dates & Guests -->
         <div class="summary-info-row">
           <span>Check-in</span>
           <strong id="sumCheckin">—</strong>
@@ -700,7 +752,6 @@
 
         <hr class="gold-divider">
 
-        <!-- Price Details -->
         <div class="summary-row">
           <span>Room</span>
           <span id="sumRoom">—</span>
@@ -730,7 +781,7 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER CONTAINER -->
   <div id="footer-container"></div>
 
   <!-- Global nav/footer loader -->
@@ -757,41 +808,31 @@
     const sumTotalEl = document.getElementById("sumTotal");
     const summaryImgEl = document.getElementById("summaryImg");
 
+    const fnameEl = document.getElementById("fname");
+    const lnameEl = document.getElementById("lname");
+    const emailEl = document.getElementById("email");
+    const phoneEl = document.getElementById("phone");
+    const successMsgEl = document.getElementById("successMsg");
+
     let nights = 0;
     let roomPrice = 0;
     let roomName = "";
 
+    /* Step switcher */
     function setStep(step) {
       stepPanels.forEach(p => {
         p.style.display = p.dataset.step == step ? "block" : "none";
       });
 
       stepItems.forEach(i => {
-        i.classList.remove("active");
-        if (i.dataset.step == step) i.classList.add("active");
+        i.classList.remove("active", "completed");
+        const s = Number(i.dataset.step);
+        if (s < step) i.classList.add("completed");
+        if (s === step) i.classList.add("active");
       });
     }
 
-    function updateSummaryPrices() {
-      sumRoomEl.innerText = roomName || "—";
-      sumNightsEl.innerText = nights;
-
-      if (roomPrice > 0 && nights > 0) {
-        const subtotal = roomPrice * nights;
-        const tax = Math.round(subtotal * 0.18);
-        const total = subtotal + tax;
-
-        sumSubtotalEl.innerText = "₹" + subtotal.toLocaleString("en-IN");
-        sumTaxEl.innerText = "₹" + tax.toLocaleString("en-IN");
-        sumTotalEl.innerText = "₹" + total.toLocaleString("en-IN");
-      } else {
-        sumSubtotalEl.innerText = "₹0";
-        sumTaxEl.innerText = "₹0";
-        sumTotalEl.innerText = "₹0";
-      }
-    }
-
-    // -------- DATE MIN SETTINGS (no past dates) ----------
+    /* Helpers: dates */
     function getToday() {
       const d = new Date();
       d.setHours(0, 0, 0, 0);
@@ -805,114 +846,302 @@
       return d.toISOString().split("T")[0];
     }
 
-    // Set initial min dates
-    checkinEl.min = getToday();
-    checkoutEl.min = getTomorrow();
-
-    checkinEl.addEventListener("change", function () {
-      const ci = new Date(this.value);
-      if (isNaN(ci)) return;
-
-      const minCheckout = getTomorrow(ci);
-      checkoutEl.min = minCheckout;
-
-      if (!checkoutEl.value || checkoutEl.value < minCheckout) {
-        checkoutEl.value = minCheckout;
-      }
-    });
-
-    // -------- STEP 1 → STEP 2 ----------
-    document.getElementById("toStep2").addEventListener("click", () => {
-      if (!checkinEl.reportValidity() || !checkoutEl.reportValidity() ||
-        !guestsEl.reportValidity() || !roomsEl.reportValidity()) {
-        return;
-      }
-
+    /* Calculate nights & update display */
+    function calculateNights() {
       const ci = new Date(checkinEl.value);
       const co = new Date(checkoutEl.value);
-      nights = (co - ci) / (1000 * 60 * 60 * 24);
 
-      if (isNaN(nights) || nights <= 0) {
-        checkoutEl.setCustomValidity("Checkout must be after Check-in date");
-        checkoutEl.reportValidity();
-        checkoutEl.setCustomValidity("");
-        nights = 0;
+      if (isNaN(ci) || isNaN(co)) {
+        stayNightsEl.textContent = "– nights";
+        sumNightsEl.textContent = "0";
+        return 0;
+      }
+
+      const diff = (co - ci) / (1000 * 60 * 60 * 24);
+      if (diff > 0) {
+        stayNightsEl.textContent = diff + " nights";
+        sumNightsEl.textContent = diff;
+        return diff;
+      } else {
+        stayNightsEl.textContent = "– nights";
+        sumNightsEl.textContent = "0";
+        return 0;
+      }
+    }
+
+    /* Error helpers */
+    function setFieldError(inputEl, errorId, message) {
+      const err = document.getElementById(errorId);
+      if (!err) return;
+      if (message) {
+        err.textContent = message;
+        inputEl.classList.add("invalid");
+      } else {
+        err.textContent = "";
+        inputEl.classList.remove("invalid");
+      }
+    }
+
+    function clearStep1Errors() {
+      setFieldError(checkinEl, "errCheckin", "");
+      setFieldError(checkoutEl, "errCheckout", "");
+      setFieldError(guestsEl, "errGuests", "");
+      setFieldError(roomsEl, "errRooms", "");
+    }
+
+    function clearStep3Errors() {
+      setFieldError(fnameEl, "errFname", "");
+      setFieldError(lnameEl, "errLname", "");
+      setFieldError(emailEl, "errEmail", "");
+      setFieldError(phoneEl, "errPhone", "");
+      successMsgEl.textContent = "";
+    }
+
+    function shakeButton(btn) {
+      btn.classList.remove("btn-shake");
+      void btn.offsetWidth; // restart animation
+      btn.classList.add("btn-shake");
+    }
+
+    /* Date min restrictions (no past dates, no auto-select checkout) */
+    checkinEl.min = getToday();
+    checkoutEl.min = getToday();
+
+    checkinEl.addEventListener("change", () => {
+      const ci = new Date(checkinEl.value);
+      if (isNaN(ci)) return;
+      const minCo = checkinEl.value || getToday();
+      checkoutEl.min = minCo;
+      nights = calculateNights();
+      setFieldError(checkinEl, "errCheckin", "");
+      setFieldError(checkoutEl, "errCheckout", "");
+    });
+
+    checkoutEl.addEventListener("change", () => {
+      nights = calculateNights();
+      setFieldError(checkoutEl, "errCheckout", "");
+    });
+
+    guestsEl.addEventListener("change", () => {
+      setFieldError(guestsEl, "errGuests", "");
+    });
+
+    roomsEl.addEventListener("change", () => {
+      setFieldError(roomsEl, "errRooms", "");
+    });
+
+    /* Step 1 validation */
+    function validateStep1() {
+      clearStep1Errors();
+      let valid = true;
+
+      if (!checkinEl.value) {
+        setFieldError(checkinEl, "errCheckin", "Please select a check-in date.");
+        valid = false;
+      }
+
+      if (!checkoutEl.value) {
+        setFieldError(checkoutEl, "errCheckout", "Please select a check-out date.");
+        valid = false;
+      }
+
+      if (checkinEl.value && checkoutEl.value) {
+        const ci = new Date(checkinEl.value);
+        const co = new Date(checkoutEl.value);
+        const diff = (co - ci) / (1000 * 60 * 60 * 24);
+        if (diff <= 0) {
+          setFieldError(checkoutEl, "errCheckout", "Check-out must be after check-in.");
+          valid = false;
+        }
+      }
+
+      if (!guestsEl.value) {
+        setFieldError(guestsEl, "errGuests", "Please select number of guests.");
+        valid = false;
+      }
+
+      if (!roomsEl.value) {
+        setFieldError(roomsEl, "errRooms", "Please select number of rooms.");
+        valid = false;
+      }
+
+      if (valid) {
+        nights = calculateNights();
+        if (nights <= 0) {
+          setFieldError(checkoutEl, "errCheckout", "Check-out must be after check-in.");
+          valid = false;
+        }
+      }
+
+      return valid;
+    }
+
+    /* Update summary prices */
+    function updateSummaryPrices() {
+      sumRoomEl.textContent = roomName || "—";
+      sumNightsEl.textContent = nights;
+
+      if (roomPrice > 0 && nights > 0) {
+        const subtotal = roomPrice * nights;
+        const tax = Math.round(subtotal * 0.18);
+        const total = subtotal + tax;
+
+        sumSubtotalEl.textContent = "₹" + subtotal.toLocaleString("en-IN");
+        sumTaxEl.textContent = "₹" + tax.toLocaleString("en-IN");
+        sumTotalEl.textContent = "₹" + total.toLocaleString("en-IN");
+      } else {
+        sumSubtotalEl.textContent = "₹0";
+        sumTaxEl.textContent = "₹0";
+        sumTotalEl.textContent = "₹0";
+      }
+    }
+
+    /* STEP 1 → STEP 2 */
+    const btnToStep2 = document.getElementById("toStep2");
+    btnToStep2.addEventListener("click", () => {
+      const valid = validateStep1();
+      if (!valid) {
+        shakeButton(btnToStep2);
         return;
       }
 
-      stayNightsEl.innerText = nights + " nights";
-      sumNightsEl.innerText = nights;
-
-      // Update summary dates & guests
-      sumCheckinEl.innerText = checkinEl.value;
-      sumCheckoutEl.innerText = checkoutEl.value;
-      sumGuestsEl.innerText = guestsEl.value + " • " + roomsEl.value;
+      // update summary
+      sumCheckinEl.textContent = checkinEl.value;
+      sumCheckoutEl.textContent = checkoutEl.value;
+      sumGuestsEl.textContent = guestsEl.value + " • " + roomsEl.value;
 
       setStep(2);
     });
 
-    // -------- ROOM SELECTION ----------
-    document.querySelectorAll(".room-card").forEach(card => {
+    /* ROOM SELECTION */
+    const roomCards = document.querySelectorAll(".room-card");
+    const errRoomEl = document.getElementById("errRoom");
+
+    roomCards.forEach(card => {
       card.addEventListener("click", () => {
-        document.querySelectorAll(".room-card").forEach(c => c.classList.remove("selected"));
+        roomCards.forEach(c => c.classList.remove("selected"));
         card.classList.add("selected");
+        errRoomEl.textContent = "";
 
         roomName = card.dataset.room;
-        roomPrice = parseInt(card.dataset.price, 10);
+        roomPrice = parseInt(card.dataset.price, 10) || 0;
 
-        // Update summary image
-        if (roomName === "Compact Suite") summaryImgEl.src = "img/b1.png";
-        else if (roomName === "Executive Suite") summaryImgEl.src = "img/b2.png";
-        else if (roomName === "Extended Stay Suite") summaryImgEl.src = "img/b3.png";
-        else summaryImgEl.src = "img/default.jpg";
+        const img = card.querySelector("img");
+        if (img) summaryImgEl.src = img.src;
 
         updateSummaryPrices();
       });
     });
 
-    // Back to Step 1
-    document.getElementById("backTo1").addEventListener("click", () => {
-      setStep(1);
-    });
+    /* STEP 2 buttons */
+    const btnToStep3 = document.getElementById("toStep3");
+    const btnBackTo1 = document.getElementById("backTo1");
 
-    // Step 2 → Step 3
-    document.getElementById("toStep3").addEventListener("click", () => {
-      if (!roomName || roomPrice <= 0) {
-        alert("Please select a room before continuing.");
+    btnBackTo1.addEventListener("click", () => setStep(1));
+
+    btnToStep3.addEventListener("click", () => {
+      if (!roomName) {
+        errRoomEl.textContent = "Please select a room to continue.";
+        shakeButton(btnToStep3);
         return;
       }
+
       if (nights <= 0) {
-        alert("Please select valid dates.");
+        setStep(1);
+        shakeButton(btnToStep2);
         return;
       }
+
       setStep(3);
     });
 
-    // Back to Step 2
-    document.getElementById("backTo2").addEventListener("click", () => {
+    /* Name & phone input filters */
+    function lettersOnly(e) {
+      e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+    }
+
+    fnameEl.addEventListener("input", lettersOnly);
+    lnameEl.addEventListener("input", lettersOnly);
+
+    phoneEl.addEventListener("input", (e) => {
+      let val = e.target.value.replace(/[^0-9]/g, "");
+      if (val.length > 10) val = val.slice(0, 10);
+      e.target.value = val;
+    });
+
+    /* STEP 3 validation */
+    const btnBackTo2 = document.getElementById("backTo2");
+    const btnPayNow = document.getElementById("payNow");
+
+    btnBackTo2.addEventListener("click", () => {
+      clearStep3Errors();
       setStep(2);
     });
 
-    // Final: Proceed to Payment
-    document.getElementById("payNow").addEventListener("click", () => {
-      const fname = document.getElementById("fname");
-      const lname = document.getElementById("lname");
-      const email = document.getElementById("email");
-      const phone = document.getElementById("phone");
+    function validateStep3() {
+      clearStep3Errors();
+      let valid = true;
 
-      if (!fname.reportValidity() || !lname.reportValidity() ||
-        !email.reportValidity() || !phone.reportValidity()) {
+      const fname = fnameEl.value.trim();
+      const lname = lnameEl.value.trim();
+      const email = emailEl.value.trim();
+      const phone = phoneEl.value.trim();
+
+      const namePattern = /^[A-Za-z\s]+$/;
+
+      if (!fname) {
+        setFieldError(fnameEl, "errFname", "First name is required.");
+        valid = false;
+      } else if (!namePattern.test(fname)) {
+        setFieldError(fnameEl, "errFname", "Only letters allowed in name.");
+        valid = false;
+      }
+
+      if (!lname) {
+        setFieldError(lnameEl, "errLname", "Last name is required.");
+        valid = false;
+      } else if (!namePattern.test(lname)) {
+        setFieldError(lnameEl, "errLname", "Only letters allowed in name.");
+        valid = false;
+      }
+
+      if (!email) {
+        setFieldError(emailEl, "errEmail", "Email is required.");
+        valid = false;
+      } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        setFieldError(emailEl, "errEmail", "Enter a valid email address.");
+        valid = false;
+      }
+
+      if (!phone) {
+        setFieldError(phoneEl, "errPhone", "Phone number is required.");
+        valid = false;
+      } else if (phone.length !== 10) {
+        setFieldError(phoneEl, "errPhone", "Phone must be 10 digits.");
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    btnPayNow.addEventListener("click", () => {
+      const valid = validateStep3();
+      if (!valid) {
+        shakeButton(btnPayNow);
         return;
       }
 
       if (!roomName || nights <= 0 || roomPrice <= 0) {
-        alert("Please complete dates and room selection before proceeding.");
+        // Just in case someone jumps steps via dev tools
+        setStep(1);
+        shakeButton(btnToStep2);
         return;
       }
 
-      alert("All details valid. Razorpay integration will go here.");
+      successMsgEl.textContent = "All details look good. Payment gateway integration will be added here.";
     });
   </script>
+
 </body>
 
 </html>

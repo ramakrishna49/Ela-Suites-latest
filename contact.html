@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
+
     <style>
         * {
             margin: 0;
@@ -20,7 +21,6 @@
         html,
         body {
             min-height: 100vh;
-
             color: #fff;
             background: url('img/t2.png') center/cover no-repeat fixed;
         }
@@ -61,7 +61,6 @@
             height: auto;
             max-height: 380px;
             object-fit: contain;
-
         }
 
         .tagline {
@@ -111,6 +110,7 @@
         .field {
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         label {
@@ -277,6 +277,53 @@
         .social-inline i:hover {
             color: goldenrod;
             transform: translateY(-6px) scale(1.2);
+        }
+
+        /* ERROR TEXT + SHAKE ANIMATION */
+        .error-text {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #ffb3b3;
+        }
+
+        .field input.error,
+        .field select.error,
+        .field textarea.error {
+            border: 1px solid #ff6b6b !important;
+            box-shadow: 0 0 0 1px rgba(255, 107, 107, 0.5);
+        }
+
+        .field.shake {
+            animation: shake 0.28s;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-3px);
+            }
+
+            50% {
+                transform: translateX(3px);
+            }
+
+            75% {
+                transform: translateX(-3px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .success-text {
+            margin-top: 15px;
+            font-size: 13px;
+            text-align: center;
+            color: #9cffc9;
         }
 
         /* PERFECT MOBILE RESPONSIVENESS */
@@ -529,17 +576,21 @@
         <!-- Form -->
         <div class="form-section">
             <h1>BOOKING INQUIRY</h1>
-            <form>
-                <div class="field full"><label>FULL NAME *</label><input type="text" placeholder="First Name" required>
+            <form id="bookingForm" novalidate>
+                <div class="field full">
+                    <label for="fullName">FULL NAME *</label>
+                    <input type="text" id="fullName" placeholder="First Name" />
                 </div>
 
-                <div class="field"><label>EMAIL ADDRESS *</label><input type="email" placeholder="you@example.com"
-                        required></div>
+                <div class="field">
+                    <label for="email">EMAIL ADDRESS *</label>
+                    <input type="email" id="email" placeholder="you@example.com" />
+                </div>
 
                 <div class="field">
                     <label>PHONE NUMBER *</label>
                     <div class="phone-group">
-                        <select class="country-code" required>
+                        <select class="country-code" id="countryCode">
                             <option value="+91">+91 </option>
                             <option value="+1">+1 </option>
                             <option value="+44">+44 </option>
@@ -561,22 +612,23 @@
                             <option value="+94">+94 </option>
                             <option value="+977">+977</option>
                         </select>
-                        <input type="tel" class="phone-input" placeholder="98765 43210" required>
+                        <input type="tel" id="phone" class="phone-input" placeholder="98765 43210" />
                     </div>
                 </div>
 
                 <div class="field">
-    <label>CHECK-IN DATE *</label>
-    <input type="date" id="checkInDate" required>
-</div>
+                    <label>CHECK-IN DATE *</label>
+                    <input type="date" id="checkInDate" />
+                </div>
 
-<div class="field">
-    <label>CHECK-OUT DATE *</label>
-    <input type="date" id="checkOutDate" required>
-</div>
+                <div class="field">
+                    <label>CHECK-OUT DATE *</label>
+                    <input type="date" id="checkOutDate" />
+                </div>
 
-                <div class="field"><label>ADULTS *</label>
-                    <select required>
+                <div class="field">
+                    <label for="adults">ADULTS *</label>
+                    <select id="adults">
                         <option value="">Select</option>
                         <option>1 Adult</option>
                         <option>2 Adults</option>
@@ -584,8 +636,9 @@
                         <option>4+ Adults</option>
                     </select>
                 </div>
-                <div class="field"><label>CHILDREN</label>
-                    <select>
+                <div class="field">
+                    <label for="children">CHILDREN</label>
+                    <select id="children">
                         <option>0 Children</option>
                         <option>1 Child</option>
                         <option>2 Children</option>
@@ -593,8 +646,10 @@
                     </select>
                 </div>
 
-                <div class="field"><label>NUMBER OF ROOMS *</label>
-                    <select required>
+                <div class="field">
+                    <label for="rooms">NUMBER OF ROOMS *</label>
+                    <select id="rooms">
+                        <option value="">Select</option>
                         <option>1 Room</option>
                         <option>2 Rooms</option>
                         <option>3 Rooms</option>
@@ -602,8 +657,9 @@
                     </select>
                 </div>
 
-                <div class="field"><label>ROOM TYPE</label>
-                    <select>
+                <div class="field">
+                    <label for="roomType">ROOM TYPE</label>
+                    <select id="roomType">
                         <option>Any Available</option>
                         <option>Deluxe King</option>
                         <option>Premium Suite</option>
@@ -612,8 +668,9 @@
                     </select>
                 </div>
 
-                <div class="field"><label>PURPOSE OF STAY</label>
-                    <select>
+                <div class="field">
+                    <label for="purpose">PURPOSE OF STAY</label>
+                    <select id="purpose">
                         <option>Leisure</option>
                         <option>Business</option>
                         <option>Wedding / Event</option>
@@ -621,8 +678,10 @@
                         <option>Other</option>
                     </select>
                 </div>
-                <div class="field"><label>HOW DID YOU FIND US?</label>
-                    <select>
+
+                <div class="field">
+                    <label for="source">HOW DID YOU FIND US?</label>
+                    <select id="source">
                         <option>Google Search</option>
                         <option>Instagram</option>
                         <option>Booking.com</option>
@@ -632,22 +691,31 @@
                     </select>
                 </div>
 
-                <div class="field"><label>COMPANY NAME (Optional)</label><input type="text"
-                        placeholder="For corporate bookings"></div>
-                <div class="field"><label>PREFERRED CONTACT METHOD</label>
-                    <select>
+                <div class="field">
+                    <label for="company">COMPANY NAME (Optional)</label>
+                    <input type="text" id="company" placeholder="For corporate bookings">
+                </div>
+
+                <div class="field">
+                    <label for="contactMethod">PREFERRED CONTACT METHOD</label>
+                    <select id="contactMethod">
                         <option>Email</option>
                         <option>Phone Call</option>
                         <option>WhatsApp (Recommended)</option>
                     </select>
                 </div>
 
-                <div class="field full"><label>SPECIAL REQUESTS / COMMENTS</label>
-                    <textarea
+                <div class="field full">
+                    <label for="requests">SPECIAL REQUESTS / COMMENTS</label>
+                    <textarea id="requests"
                         placeholder="Late check-in, extra bed, anniversary setup, airport transfer, dietary needs, etc."></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">SEND INQUIRY</button>
+
+                <p id="successMessage" class="success-text" style="display:none;">
+                    Thank you. We have received your inquiry and will contact you shortly.
+                </p>
             </form>
         </div>
 
@@ -678,42 +746,210 @@
         </div>
 
     </div>
+
     <div id="cursor-trail"></div>
     <script src="script.js"></script>
 
-
     <div id="footer-container"></div>
-</body>
 
-<script>
-    const checkIn = document.getElementById("checkInDate");
-    const checkOut = document.getElementById("checkOutDate");
+    <!-- VALIDATION & DATE LOGIC -->
+    <script>
+        const checkIn = document.getElementById("checkInDate");
+        const checkOut = document.getElementById("checkOutDate");
+        const form = document.getElementById("bookingForm");
+        const successMessage = document.getElementById("successMessage");
 
-    // Get today's date (YYYY-MM-DD)
-    let today = new Date();
-    today.setHours(0, 0, 0, 0);
-    let minDate = today.toISOString().split("T")[0];
+        const fullNameInput = document.getElementById("fullName");
+        const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const countryCodeSelect = document.getElementById("countryCode");
+        const adultsSelect = document.getElementById("adults");
+        const roomsSelect = document.getElementById("rooms");
 
-    // Apply min to both
-    checkIn.min = minDate;
-    checkOut.min = minDate;
+        // --- Date min logic (no past dates, checkout ≥ next day) ---
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let minDate = today.toISOString().split("T")[0];
 
-    // When check-in changes
-    checkIn.addEventListener("change", () => {
-        let selectedIn = new Date(checkIn.value);
-        selectedIn.setHours(0, 0, 0, 0);
+        checkIn.min = minDate;
+        checkOut.min = minDate;
 
-        let nextDay = new Date(selectedIn);
-        nextDay.setDate(selectedIn.getDate() + 1);
-        
-        // Checkout cannot be before next day
-        checkOut.min = nextDay.toISOString().split("T")[0];
+        checkIn.addEventListener("change", () => {
+            if (!checkIn.value) return;
+            let selectedIn = new Date(checkIn.value);
+            selectedIn.setHours(0, 0, 0, 0);
 
-        if (checkOut.value < checkOut.min) {
-            checkOut.value = "";
+            let nextDay = new Date(selectedIn);
+            nextDay.setDate(selectedIn.getDate() + 1);
+            const minCo = nextDay.toISOString().split("T")[0];
+
+            checkOut.min = minCo;
+
+            if (checkOut.value && checkOut.value < minCo) {
+                checkOut.value = "";
+            }
+        });
+
+        // --- Only letters in name ---
+        fullNameInput.addEventListener("input", (e) => {
+            e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+        });
+
+        // --- Only digits in phone ---
+        phoneInput.addEventListener("input", (e) => {
+            e.target.value = e.target.value.replace(/\D/g, "");
+        });
+
+        // Helper: show error under field
+        function showError(inputEl, message) {
+            const field = inputEl.closest(".field");
+            if (!field) return;
+
+            let errorEl = field.querySelector(".error-text");
+            if (!errorEl) {
+                errorEl = document.createElement("div");
+                errorEl.className = "error-text";
+                field.appendChild(errorEl);
+            }
+            errorEl.textContent = message;
+
+            inputEl.classList.add("error");
+            field.classList.add("shake");
+            setTimeout(() => field.classList.remove("shake"), 280);
         }
-    });
-</script>
 
+        // Helper: clear error
+        function clearError(inputEl) {
+            const field = inputEl.closest(".field");
+            if (!field) return;
+            const errorEl = field.querySelector(".error-text");
+            if (errorEl) errorEl.textContent = "";
+            inputEl.classList.remove("error");
+        }
+
+        // Country-based phone length
+        function getPhoneLengthForCountry(code) {
+            const map = {
+                "+91": 10,
+                "+1": 10,
+                "+44": 10,
+                "+971": 9,
+                "+61": 9,
+                "+65": 8,
+                "+81": 10,
+                "+49": 10,
+                "+33": 9,
+                "+966": 9,
+                "+974": 8,
+                "+968": 8,
+                "+973": 8,
+                "+20": 9,
+                "+27": 9,
+                "+234": 10,
+                "+92": 10,
+                "+880": 10,
+                "+94": 9,
+                "+977": 10
+            };
+            return map[code] || 6; // default minimum
+        }
+
+        // --- Validate on submit (custom, no browser popup) ---
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            successMessage.style.display = "none";
+
+            const requiredFields = [fullNameInput, emailInput, phoneInput, checkIn, checkOut, adultsSelect, roomsSelect];
+
+            // Clear old errors
+            requiredFields.forEach(f => clearError(f));
+
+            let firstInvalid = null;
+
+            // 1) Full name
+            if (!fullNameInput.value.trim()) {
+                showError(fullNameInput, "Please enter your full name.");
+                firstInvalid = firstInvalid || fullNameInput;
+            } else if (fullNameInput.value.trim().length < 3) {
+                showError(fullNameInput, "Name should be at least 3 characters.");
+                firstInvalid = firstInvalid || fullNameInput;
+            }
+
+            // 2) Email (basic check)
+            const emailVal = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailVal) {
+                showError(emailInput, "Please enter your email.");
+                firstInvalid = firstInvalid || emailInput;
+            } else if (!emailPattern.test(emailVal)) {
+                showError(emailInput, "Please enter a valid email address.");
+                firstInvalid = firstInvalid || emailInput;
+            }
+
+            // 3) Phone with country-based length
+            const phoneVal = phoneInput.value.trim();
+            const countryCode = countryCodeSelect.value;
+            const requiredLen = getPhoneLengthForCountry(countryCode);
+
+            if (!phoneVal) {
+                showError(phoneInput, "Please enter your phone number.");
+                firstInvalid = firstInvalid || phoneInput;
+            } else if (phoneVal.length !== requiredLen) {
+                showError(phoneInput, `Phone number must be ${requiredLen} digits for ${countryCode}.`);
+                firstInvalid = firstInvalid || phoneInput;
+            }
+
+            // 4) Dates
+            if (!checkIn.value) {
+                showError(checkIn, "Please select a check-in date.");
+                firstInvalid = firstInvalid || checkIn;
+            }
+
+            if (!checkOut.value) {
+                showError(checkOut, "Please select a check-out date.");
+                firstInvalid = firstInvalid || checkOut;
+            }
+
+            if (checkIn.value && checkOut.value) {
+                const ci = new Date(checkIn.value);
+                const co = new Date(checkOut.value);
+                ci.setHours(0, 0, 0, 0);
+                co.setHours(0, 0, 0, 0);
+
+                if (co <= ci) {
+                    showError(checkOut, "Check-out must be after check-in date.");
+                    firstInvalid = firstInvalid || checkOut;
+                }
+            }
+
+            // 5) Adults
+            if (!adultsSelect.value) {
+                showError(adultsSelect, "Please select number of adults.");
+                firstInvalid = firstInvalid || adultsSelect;
+            }
+
+            // 6) Rooms
+            if (!roomsSelect.value) {
+                showError(roomsSelect, "Please select number of rooms.");
+                firstInvalid = firstInvalid || roomsSelect;
+            }
+
+            // If any errors → scroll to first invalid field
+            if (firstInvalid) {
+                const field = firstInvalid.closest(".field");
+                const y = field.getBoundingClientRect().top + window.scrollY - 120;
+                window.scrollTo({ top: y, behavior: "smooth" });
+                return;
+            }
+
+            // If everything valid → show success
+            successMessage.style.display = "block";
+
+            // Optional: clear form after a short delay
+            // form.reset();
+        });
+    </script>
+
+</body>
 
 </html>
