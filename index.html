@@ -411,7 +411,7 @@
         }
 
         .available {
-            color: #00fb00;
+            color:green;
         }
 
         .available i {
@@ -980,6 +980,38 @@
                 display: block;
             }
         }
+
+        /* RED BORDER */
+        .input-error {
+            border: 2px solid #ff4d4d !important;
+        }
+
+        /* SHAKE ANIMATION */
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-4px);
+            }
+
+            50% {
+                transform: translateX(4px);
+            }
+
+            75% {
+                transform: translateX(-4px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .shake {
+            animation: shake 0.3s ease;
+        }
     </style>
 </head>
 
@@ -1049,11 +1081,11 @@
             <div class="booking-form">
                 <div class="form-group">
                     <label>Check-in</label>
-                    <input type="date" id="checkin-desktop" required>
+                    <input type="date" id="checkin-desktop">
                 </div>
                 <div class="form-group">
                     <label>Check-out</label>
-                    <input type="date" id="checkout-desktop" required>
+                    <input type="date" id="checkout-desktop">
                 </div>
                 <div class="form-group">
                     <label>Adults</label>
@@ -1094,11 +1126,11 @@
         <div class="booking-form">
             <div class="form-group">
                 <label>Check-in</label>
-                <input type="date" id="checkin-mobile" required>
+                <input type="date" id="checkin-mobile">
             </div>
             <div class="form-group">
                 <label>Check-out</label>
-                <input type="date" id="checkout-mobile" required>
+                <input type="date" id="checkout-mobile">
             </div>
             <div class="form-group">
                 <label>Adults</label>
@@ -1165,7 +1197,7 @@
                         <h3>Deluxe Suite</h3>
                         <p class="size">180 sq.ft • Work Desk</p>
                         <div class="price">₹5,999 <span>/ night</span></div>
-                         <a href="Book.html"><button class="view-btn">Book Now</button></a>
+                        <a href="Book.html"><button class="view-btn">Book Now</button></a>
                     </div>
                 </div>
 
@@ -1178,7 +1210,7 @@
                         <h3>Executive Suite</h3>
                         <p class="size">210 sq.ft • Lounge Access</p>
                         <div class="price">₹7,999 <span>/ night</span></div>
-                         <a href="Book.html"><button class="view-btn">Book Now</button></a>
+                        <a href="Book.html"><button class="view-btn">Book Now</button></a>
                     </div>
                 </div>
             </div>
@@ -1200,7 +1232,8 @@
                     natural light and a calm, spacious ambience.</p>
                 <p>Guests experience an immediate sense of comfort, elegance and efficiency designed for modern city
                     living.</p>
-                <p>Perfect for business travellers, families and long-stay guests seeking a refined first impression.</p>
+                <p>Perfect for business travellers, families and long-stay guests seeking a refined first impression.
+                </p>
             </div>
 
             <div class="image-wrapper fade-right">
@@ -1754,7 +1787,7 @@
         // All check-in fields (desktop + mobile)
         document.querySelectorAll("#checkin-desktop, #checkin-mobile").forEach(checkin => {
             checkin.min = today;
-            checkin.value = today;
+          
 
             checkin.addEventListener("change", function () {
                 const selectedDate = this.value;
@@ -1803,56 +1836,91 @@
     </script>
 
     <script>
-        // CHECK AVAILABILITY BUTTON LOGIC - WORKS FOR BOTH DESKTOP & MOBILE
         document.querySelectorAll(".check-availability-btn").forEach(button => {
             button.addEventListener("click", function () {
+
                 const btn = this;
                 const resultSpan = btn.querySelector(".btn-result");
                 const originalText = btn.querySelector(".btn-text");
 
-                // Get form inside same booking-form container
                 const form = btn.closest(".booking-form");
                 const checkinInput = form.querySelector("input[id^='checkin']");
                 const checkoutInput = form.querySelector("input[id^='checkout']");
 
-                const checkin = checkinInput ? checkinInput.value : "";
-                const checkout = checkoutInput ? checkoutInput.value : "";
+                const checkin = checkinInput.value;
+                const checkout = checkoutInput.value;
 
-                if (!checkin || !checkout) {
-                    alert("Please select both check-in and check-out dates.");
+                // RESET STATES
+                [checkinInput, checkoutInput].forEach(input => {
+                    input.classList.remove("input-error", "shake");
+                });
+
+                // VALIDATION (NO AUTO DATE)
+                if (!checkin) {
+                    checkinInput.classList.add("input-error", "shake");
+                    return;
+                }
+
+                if (!checkout) {
+                    checkoutInput.classList.add("input-error", "shake");
                     return;
                 }
 
                 if (checkout <= checkin) {
-                    alert("Check-out date must be after check-in date.");
+                    checkoutInput.classList.add("input-error", "shake");
                     return;
                 }
 
-                // Show loading state
+                // VALID → Show Checking Animation
                 originalText.textContent = "Checking...";
-                resultSpan.style.display = "none";
                 originalText.style.display = "inline";
+                resultSpan.style.display = "none";
 
                 setTimeout(() => {
-                    const isAvailable = Math.random() > 0.5;
+                    const available = Math.random() > 0.5;
 
                     originalText.style.display = "none";
                     resultSpan.style.display = "flex";
-                    resultSpan.innerHTML = isAvailable
-                        ? '<i class="bi bi-check-circle-fill"></i> Rooms Available!'
-                        : '<i class="bi bi-x-circle-fill"></i> No rooms available';
 
-                    resultSpan.className = "btn-result " + (isAvailable ? "available" : "not-available");
-
-                    if (!isAvailable) {
-                        setTimeout(() => {
-                            document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                        }, 2000);
+                    if (available) {
+                        resultSpan.innerHTML = '<i class="bi bi-check-circle-fill"></i> Rooms Available!';
+                        resultSpan.className = "btn-result available";
+                    } else {
+                        resultSpan.innerHTML = '<i class="bi bi-x-circle-fill"></i> No rooms available';
+                        resultSpan.className = "btn-result not-available";
                     }
-                }, 1200);
+
+                }, 1000);
+
             });
         });
     </script>
+    <script>
+        function openDatePicker(input) {
+            input.type = "date";
+            input.showPicker();  // Opens calendar
+        }
+
+        function restorePlaceholder(input) {
+            if (!input.value) input.type = "text";
+        }
+
+        document.getElementById("checkin").addEventListener("focus", function () {
+            openDatePicker(this);
+        });
+        document.getElementById("checkin").addEventListener("blur", function () {
+            restorePlaceholder(this);
+        });
+
+        document.getElementById("checkout").addEventListener("focus", function () {
+            openDatePicker(this);
+        });
+        document.getElementById("checkout").addEventListener("blur", function () {
+            restorePlaceholder(this);
+        });
+    </script>
+
+
 
     <script>
         // Animate rooms on scroll
