@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;500;700&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -70,6 +70,21 @@
             letter-spacing: 3px;
         }
 
+        /* Mobile quote above title */
+        .hero-quote-mobile {
+            display: none;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            color: #222;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .hero-quote-mobile {
+                display: block;
+            }
+        }
 
         /********************************
                    SECTIONS
@@ -103,7 +118,6 @@
             font-family: "Cinzel", serif;
             font-size: clamp(2rem, 5vw, 3.5rem);
             color: var(--navy-light);
-            /* FIXED: removed extra space */
             margin-bottom: 20px;
             position: relative;
             display: inline-block;
@@ -131,7 +145,6 @@
             width: 100%;
             max-width: 520px;
             height: 420px;
-            /* smaller height for large screens */
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 30px 80px rgba(212, 175, 55, 0.25);
@@ -141,7 +154,6 @@
             .image-wrapper {
                 max-width: 100%;
                 height: 360px;
-                /* reduced height */
             }
         }
 
@@ -159,7 +171,6 @@
             .image-wrapper {
                 width: 100%;
                 height: 300px;
-                /* mobile height */
                 border-radius: 18px;
             }
 
@@ -181,7 +192,6 @@
         @media (max-width: 480px) {
             .image-wrapper {
                 height: 240px;
-                /* smaller for very small screens */
             }
 
             header h1 {
@@ -194,10 +204,8 @@
             }
         }
 
-
         .image-slider img {
             position: absolute;
-            /* REQUIRED for slider */
             inset: 0;
             width: 100%;
             height: 100%;
@@ -208,9 +216,7 @@
 
         .image-slider img.active {
             opacity: 1;
-            /* Show the active image */
         }
-
 
         .cross-line {
             width: 5px;
@@ -273,6 +279,14 @@
             gap: 18px;
             border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Make booking bar more flexible on mid screens */
+        @media (max-width: 1200px) and (min-width: 992px) {
+            .booking-bar-desktop .booking-form {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: auto;
+            }
         }
 
         /* BOOKING BAR - SMALL SCREENS (BELOW HERO) */
@@ -554,7 +568,6 @@
             color: #000;
         }
 
-        /* Mobile */
         @media (max-width: 768px) {
             .rooms-preview {
                 padding: 80px 5% 100px;
@@ -568,8 +581,6 @@
                 height: 180px;
             }
         }
-
-
 
         /* WHY GUESTS LOVE ELA – TESTIMONIALS + TRUST */
         .why-ela {
@@ -637,7 +648,6 @@
             font-size: 0.95rem;
         }
 
-        /* Trust Badges */
         .trust-badges {
             display: flex;
             justify-content: center;
@@ -663,7 +673,6 @@
             font-weight: 600;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .why-ela {
                 padding: 90px 5%;
@@ -673,8 +682,6 @@
                 gap: 40px;
             }
         }
-
-
 
         /* FINAL DIRECT BOOKING CTA */
         .direct-cta {
@@ -793,7 +800,6 @@
             color: var(--gold);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .direct-cta {
                 padding: 120px 5%;
@@ -815,7 +821,6 @@
                 justify-content: center;
             }
         }
-
 
         .faq-section {
             padding: 140px 5%;
@@ -936,15 +941,48 @@
                 font-size: 1.15rem;
             }
         }
+
+        /* --- HERO EXTRA CONTENT FOR MOBILE (NO LAYOUT SHIFT) --- */
+        .hero-mobile-extra {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            display: none;
+        }
+
+        .hero-mobile-extra .mobile-cta-btn {
+            display: inline-block;
+            background: var(--gold);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 28px;
+            font-family: "Cinzel", serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-decoration: none;
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.35);
+            transition: 0.3s ease !important;
+            margin-bottom: 50px;
+        }
+
+        .hero-mobile-extra .mobile-cta-btn:hover {
+            transform: translateY(-4px);
+            background: #e6c557;
+        }
+
+        @media (max-width: 768px) {
+            .hero-mobile-extra {
+                display: block;
+            }
+        }
     </style>
-
-
-
 </head>
 
 <body>
-
-
 
     <!-- NAVBAR WITH FLIP-TO-X ICON (PERFECT) -->
     <div class="nav-wrapper">
@@ -961,10 +999,10 @@
                     class="label">Rooms</span></div>
             <div class="menu-item" data-link="gallery.html"><span class="num">4</span>&nbsp;<span
                     class="label">Gallery</span></div>
-            <div class="menu-item " data-link="contact.html"><span class="num">5</span>&nbsp;<span
+            <div class="menu-item" data-link="contact.html"><span class="num">5</span>&nbsp;<span
                     class="label">Contact</span></div>
 
-           <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
+            <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
         </div>
 
         <!-- Mobile Toggle with Flip X Animation -->
@@ -974,7 +1012,7 @@
     </div>
 
     <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">       
+    <div class="mobile-menu" id="mobileMenu">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="rooms.html">Rooms</a>
@@ -985,7 +1023,7 @@
 
     <!---------------------------------------
                     HERO
----------------------------------------->
+    ---------------------------------------->
     <header id="home">
         <video id="hero-video" autoplay muted loop playsinline>
             <source src="img/WhatsApp Video 2025-12-06 at 13.24.15_85a1271c.mp4" type="video/mp4">
@@ -993,33 +1031,56 @@
         <div class="overlay"></div>
 
         <div class="hero-content">
+            <!-- Mobile quote above title -->
+            <p class="hero-quote-mobile">A calm space for busy lives.</p>
+
             <h1 style="font-weight:bolder;">ELA SUITES</h1>
             <p>COMFORT • CONNECTIVITY • COMMUNITY</p>
+        </div>
+
+        <!-- MOBILE CTA INSIDE HERO (BOTTOM) -->
+        <div class="hero-mobile-extra">
+            <a href="Book.html" class="mobile-cta-btn">BOOK NOW</a>
         </div>
 
         <!-- BOOKING BAR - VISIBLE ONLY ON LARGE SCREENS -->
         <div class="booking-bar-desktop">
             <div class="booking-form">
-                <div class="form-group"><label>Check-in</label><input type="date" id="checkin-desktop" required></div>
-                <div class="form-group"><label>Check-out</label><input type="date" id="checkout-desktop" required></div>
-                <div class="form-group"><label>Adults</label><select>
+                <div class="form-group">
+                    <label>Check-in</label>
+                    <input type="date" id="checkin-desktop" required>
+                </div>
+                <div class="form-group">
+                    <label>Check-out</label>
+                    <input type="date" id="checkout-desktop" required>
+                </div>
+                <div class="form-group">
+                    <label>Adults</label>
+                    <select>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
                         <option>4+</option>
-                    </select></div>
-                <div class="form-group"><label>Children</label><select>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Children</label>
+                    <select>
                         <option>0</option>
                         <option>1</option>
                         <option>2</option>
                         <option>3+</option>
-                    </select></div>
-                <div class="form-group"><label>Rooms</label><select>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Rooms</label>
+                    <select>
                         <option>1</option>
                         <option>2</option>
                         <option>3+</option>
-                    </select></div>
-                <button type="button" class="booking-btn" id="check-availability-btn">
+                    </select>
+                </div>
+                <button type="button" class="booking-btn check-availability-btn">
                     <span class="btn-text">CHECK AVAILABILITY</span>
                     <span class="btn-result" style="display:none;"></span>
                 </button>
@@ -1030,26 +1091,41 @@
     <!-- BOOKING BAR BELOW HERO - VISIBLE ONLY ON MOBILE/TABLET -->
     <section class="booking-bar-mobile">
         <div class="booking-form">
-            <div class="form-group"><label>Check-in</label><input type="date" id="checkin-mobile" required></div>
-            <div class="form-group"><label>Check-out</label><input type="date" id="checkout-mobile" required></div>
-            <div class="form-group"><label>Adults</label><select>
+            <div class="form-group">
+                <label>Check-in</label>
+                <input type="date" id="checkin-mobile" required>
+            </div>
+            <div class="form-group">
+                <label>Check-out</label>
+                <input type="date" id="checkout-mobile" required>
+            </div>
+            <div class="form-group">
+                <label>Adults</label>
+                <select>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4+</option>
-                </select></div>
-            <div class="form-group"><label>Children</label><select>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Children</label>
+                <select>
                     <option>0</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3+</option>
-                </select></div>
-            <div class="form-group"><label>Rooms</label><select>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Rooms</label>
+                <select>
                     <option>1</option>
                     <option>2</option>
                     <option>3+</option>
-                </select></div>
-            <button type="button" class="booking-btn" id="check-availability-btn">
+                </select>
+            </div>
+            <button type="button" class="booking-btn check-availability-btn">
                 <span class="btn-text">CHECK AVAILABILITY</span>
                 <span class="btn-result" style="display:none;"></span>
             </button>
@@ -1075,7 +1151,7 @@
                         <h3>Premium Room</h3>
                         <p class="size">155 sq.ft • King Bed</p>
                         <div class="price">₹4,999 <span>/ night</span></div>
-                        <button class="view-btn">View Details</button>
+                        <a href="Book.html"><button class="view-btn">Book Now</button></a>
                     </div>
                 </div>
 
@@ -1088,7 +1164,7 @@
                         <h3>Deluxe Suite</h3>
                         <p class="size">180 sq.ft • Work Desk</p>
                         <div class="price">₹5,999 <span>/ night</span></div>
-                        <button class="view-btn">View Details</button>
+                         <a href="Book.html"><button class="view-btn">Book Now</button></a>
                     </div>
                 </div>
 
@@ -1101,7 +1177,7 @@
                         <h3>Executive Suite</h3>
                         <p class="size">210 sq.ft • Lounge Access</p>
                         <div class="price">₹7,999 <span>/ night</span></div>
-                        <button class="view-btn">View Details</button>
+                         <a href="Book.html"><button class="view-btn">Book Now</button></a>
                     </div>
                 </div>
             </div>
@@ -1111,6 +1187,7 @@
             </div>
         </div>
     </section>
+
     <!---------------------------------------
                 RECEPTION SECTION
     ---------------------------------------->
@@ -1122,9 +1199,7 @@
                     natural light and a calm, spacious ambience.</p>
                 <p>Guests experience an immediate sense of comfort, elegance and efficiency designed for modern city
                     living.</p>
-                <p>Perfect for business travellers, families and long-stay guests seeking a refined first impression.
-                </p>
-
+                <p>Perfect for business travellers, families and long-stay guests seeking a refined first impression.</p>
             </div>
 
             <div class="image-wrapper fade-right">
@@ -1140,7 +1215,6 @@
         <div class="cross-line cross-right"></div>
     </section>
 
-
     <!---------------------------------------
                 CORRIDOR SECTION
     ---------------------------------------->
@@ -1151,7 +1225,6 @@
                 <p>Wide, well-lit corridors designed for smooth movement and a feeling of safety.</p>
                 <p>Premium lighting and clean, modern finishes make circulation areas feel bright and inviting.</p>
                 <p>Ideal for seniors, families with children and guests carrying luggage.</p>
-
             </div>
 
             <div class="image-wrapper fade-left">
@@ -1167,7 +1240,6 @@
         <div class="cross-line cross-left"></div>
     </section>
 
-
     <!---------------------------------------
                     BEDROOM SECTION
     ---------------------------------------->
@@ -1178,7 +1250,6 @@
                 <p>Each compact room is intelligently planned to maximize comfort and functionality.</p>
                 <p>Smart layout ensures separate zones for sleep, work and storage within 155 sq.ft.</p>
                 <p>Perfect for short stays, long-stays and remote working professionals.</p>
-
             </div>
 
             <div class="image-wrapper fade-right">
@@ -1194,7 +1265,6 @@
         <div class="cross-line cross-right"></div>
     </section>
 
-
     <!---------------------------------------
               CAFETERIA SECTION
     ---------------------------------------->
@@ -1205,7 +1275,6 @@
                 <p>An all-day café designed for dining, coworking and casual meetings.</p>
                 <p>Equipped with a modern kitchen, warm lighting and comfortable seating layouts.</p>
                 <p>A perfect blend of relaxation and productivity for guests throughout the day.</p>
-
             </div>
 
             <div class="image-wrapper fade-left">
@@ -1221,7 +1290,6 @@
         <div class="cross-line cross-left"></div>
     </section>
 
-
     <!---------------------------------------
                   TERRACE SECTION
     ---------------------------------------->
@@ -1232,7 +1300,6 @@
                 <p>A multi-use open-air terrace crafted for evening relaxation, small gatherings and outdoor work.</p>
                 <p>Beautiful ambient lighting creates the perfect vibe from sunrise coffee to sunset conversations.</p>
                 <p>Ideal for guests who enjoy fresh air and community spaces.</p>
-
             </div>
 
             <div class="image-wrapper fade-scale">
@@ -1246,7 +1313,6 @@
 
         <div class="cross-line cross-right"></div>
     </section>
-
 
     <!-- WHY GUESTS LOVE ELA – TESTIMONIALS + TRUST BADGES -->
     <section class="why-ela">
@@ -1291,11 +1357,11 @@
             <!-- Trust Badges -->
             <div class="trust-badges">
                 <div class="badge">
-                    <img src="https://img.icons8.com/color/48/000000/google-reviews.png" alt="4.9 on Google">
+                    <img src="img/Google_logo.png" alt="4.9 on Google">
                     <span>4.9 / 5 on Google</span>
                 </div>
                 <div class="badge">
-                    <img src="https://img.icons8.com/fluency/48/000000/booking-com.png" alt="Booking.com">
+                    <img src="img/booking.png" alt="Booking.com">
                     <span>9.2 / 10 on Booking.com</span>
                 </div>
                 <div class="badge">
@@ -1305,6 +1371,84 @@
             </div>
         </div>
     </section>
+
+<div id="cursor-trail"></div>
+<style>
+ /* HIDE DEFAULT CURSOR */
+body, * {
+    cursor: none !important;
+}
+
+/* GOLD TRAIL CURSOR */
+#cursor-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    background: #d4af37 !important;
+    opacity: 0.9;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+}
+
+/* trail dots */
+.trail-dot {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d4af37 !important;
+    pointer-events: none;
+    opacity: 0.7;
+    mix-blend-mode: difference;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    filter: blur(2px);
+}
+input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+</style>
+<script>
+// Main cursor
+const cursor = document.getElementById("cursor-trail");
+
+document.addEventListener("mousemove", (e) => {
+    // Move main cursor
+    gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.2,
+        ease: "power3.out"
+    });
+
+    createTrailDot(e.clientX, e.clientY);
+});
+
+// Create fading gold dots
+function createTrailDot(x, y) {
+    const dot = document.createElement("div");
+    dot.classList.add("trail-dot");
+    document.body.appendChild(dot);
+
+    gsap.set(dot, { x, y });
+
+    gsap.to(dot, {
+        opacity: 0,
+        scale: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        onComplete: () => dot.remove()
+    });
+}
+</script>
     <!-- FINAL DIRECT BOOKING CTA – LIMITED KEYS -->
     <section class="direct-cta">
         <div class="cta-overlay"></div>
@@ -1543,7 +1687,15 @@
             });
         });
 
-       
+        /* Auto-close mobile menu when resizing to large screens */
+        window.addEventListener("resize", () => {
+            if (window.innerWidth >= 992) {
+                const mobileMenu = document.getElementById("mobileMenu");
+                if (mobileMenu) {
+                    mobileMenu.style.display = "none";
+                }
+            }
+        });
 
         /* GSAP */
         gsap.registerPlugin(ScrollTrigger);
@@ -1571,10 +1723,7 @@
             });
         });
 
-        /* ===============================
-    FIXED GSAP ANIMATIONS (MOBILE FRIENDLY)
- ================================*/
-
+        /* MOBILE-FRIENDLY GSAP ENTRANCES */
         const isMobile = window.innerWidth < 768;
 
         gsap.utils.toArray(".fade-left").forEach(el => {
@@ -1640,8 +1789,8 @@
                 }
             );
         });
-
     </script>
+
     <script>
         // Animate desktop booking bar
         gsap.to(".booking-bar-desktop", {
@@ -1673,22 +1822,21 @@
             });
         });
     </script>
+
     <script>
         // DATE VALIDATION – NO PAST DATES + CHECK-OUT ≥ CHECK-IN
-        const today = new Date().toISOString().split("T")[0]; // Today's date in YYYY-MM-DD
+        const today = new Date().toISOString().split("T")[0];
 
         // All check-in fields (desktop + mobile)
         document.querySelectorAll("#checkin-desktop, #checkin-mobile").forEach(checkin => {
-            checkin.min = today; // Disable past dates
-            checkin.value = today; // Optional: auto-set today
+            checkin.min = today;
+            checkin.value = today;
 
             checkin.addEventListener("change", function () {
                 const selectedDate = this.value;
 
-                // Update all check-out fields
                 document.querySelectorAll("#checkout-desktop, #checkout-mobile").forEach(checkout => {
-                    checkout.min = selectedDate; // Checkout cannot be before check-in
-                    // If current checkout is invalid, clear or move it
+                    checkout.min = selectedDate;
                     if (checkout.value && checkout.value < selectedDate) {
                         checkout.value = "";
                     }
@@ -1704,12 +1852,10 @@
                 const checkinFields = document.querySelectorAll("#checkin-desktop, #checkin-mobile");
                 let checkinDate = "";
 
-                // Find the selected check-in date
                 checkinFields.forEach(field => {
                     if (field.value) checkinDate = field.value;
                 });
 
-                // If checkout is before check-in, reset it
                 if (checkinDate && this.value < checkinDate) {
                     alert("Check-out date cannot be earlier than check-in date.");
                     this.value = "";
@@ -1717,13 +1863,12 @@
             });
         });
 
-        // Optional: Auto-sync both forms (so desktop/mobile stay in sync)
-        document.querySelectorAll("input[type='date'], select").forEach(input => {
+        // Optional: Auto-sync both forms (desktop ↔ mobile)
+        document.querySelectorAll("input[type='date']").forEach(input => {
             input.addEventListener("change", function () {
                 const name = this.id.replace("-desktop", "").replace("-mobile", "");
                 const value = this.value;
 
-                // Sync desktop ↔ mobile
                 const desktopField = document.getElementById(name + "-desktop");
                 const mobileField = document.getElementById(name + "-mobile");
 
@@ -1732,53 +1877,56 @@
             });
         });
     </script>
+
     <script>
-        // CHECK AVAILABILITY BUTTON LOGIC
-        document.getElementById("check-availability-btn").addEventListener("click", function () {
-            const btn = this;
-            const resultSpan = btn.querySelector(".btn-result");
-            const originalText = btn.querySelector(".btn-text");
+        // CHECK AVAILABILITY BUTTON LOGIC - WORKS FOR BOTH DESKTOP & MOBILE
+        document.querySelectorAll(".check-availability-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const btn = this;
+                const resultSpan = btn.querySelector(".btn-result");
+                const originalText = btn.querySelector(".btn-text");
 
-            // Get values (works for both desktop & mobile)
-            const checkin = document.querySelector("#checkin-desktop, #checkin-mobile").value;
-            const checkout = document.querySelector("#checkout-desktop, #checkout-mobile").value;
+                // Get form inside same booking-form container
+                const form = btn.closest(".booking-form");
+                const checkinInput = form.querySelector("input[id^='checkin']");
+                const checkoutInput = form.querySelector("input[id^='checkout']");
 
-            // Basic validation
-            if (!checkin || !checkout) {
-                alert("Please select both check-in and check-out dates.");
-                return;
-            }
+                const checkin = checkinInput ? checkinInput.value : "";
+                const checkout = checkoutInput ? checkoutInput.value : "";
 
-            if (checkout <= checkin) {
-                alert("Check-out date must be after check-in date.");
-                return;
-            }
-
-            // Show loading state
-            originalText.textContent = "Checking...";
-            resultSpan.style.display = "none";
-
-            // SIMULATE AVAILABILITY CHECK (Replace this with real API later)
-            setTimeout(() => {
-                // Random result for demo (50% chance available)
-                const isAvailable = Math.random() > 0.5;
-
-                originalText.style.display = "none";
-                resultSpan.style.display = "flex";
-                resultSpan.innerHTML = isAvailable
-                    ? '<i class="bi bi-check-circle-fill"></i> Rooms Available!'
-                    : '<i class="bi bi-x-circle-fill"></i> No rooms available';
-
-                resultSpan.className = "btn-result " + (isAvailable ? "available" : "not-available");
-
-                // Optional: Auto-scroll to contact form if not available
-                if (!isAvailable) {
-                    setTimeout(() => {
-                        document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                    }, 2000);
+                if (!checkin || !checkout) {
+                    alert("Please select both check-in and check-out dates.");
+                    return;
                 }
 
-            }, 1200); // Simulated delay
+                if (checkout <= checkin) {
+                    alert("Check-out date must be after check-in date.");
+                    return;
+                }
+
+                // Show loading state
+                originalText.textContent = "Checking...";
+                resultSpan.style.display = "none";
+                originalText.style.display = "inline";
+
+                setTimeout(() => {
+                    const isAvailable = Math.random() > 0.5;
+
+                    originalText.style.display = "none";
+                    resultSpan.style.display = "flex";
+                    resultSpan.innerHTML = isAvailable
+                        ? '<i class="bi bi-check-circle-fill"></i> Rooms Available!'
+                        : '<i class="bi bi-x-circle-fill"></i> No rooms available';
+
+                    resultSpan.className = "btn-result " + (isAvailable ? "available" : "not-available");
+
+                    if (!isAvailable) {
+                        setTimeout(() => {
+                            document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                        }, 2000);
+                    }
+                }, 1200);
+            });
         });
     </script>
 
@@ -1799,6 +1947,7 @@
             });
         });
     </script>
+
     <script>
         // Animate testimonials
         gsap.utils.toArray(".testimonial-card").forEach((card, i) => {
@@ -1831,8 +1980,6 @@
                 toggleActions: "play none none reverse"
             }
         });
-
-
     </script>
 
     <script>
@@ -1846,7 +1993,11 @@
 
         // Animation on scroll
         gsap.from(".faq-item", {
-            y: 80, opacity: 0, duration: 1.2, stagger: 0.1, ease: "power3.out",
+            y: 80,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.1,
+            ease: "power3.out",
             scrollTrigger: { trigger: ".faq-section", start: "top 75%" }
         });
     </script>
