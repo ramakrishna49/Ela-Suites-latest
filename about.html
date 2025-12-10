@@ -9,7 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:wght@400;500&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -38,7 +38,8 @@
 
         .hero {
             position: relative;
-            min-height: 90vh;              /* more flexible than fixed 98vh */
+            min-height: 90vh;
+            /* more flexible than fixed 98vh */
             width: 100%;
             overflow: hidden;
             display: flex;
@@ -46,7 +47,8 @@
             justify-content: center;
             text-align: center;
             color: var(--white);
-            padding: 140px 16px 120px;     /* leaves space for fixed nav */
+            padding: 140px 16px 120px;
+            /* leaves space for fixed nav */
         }
 
         .hero-bg {
@@ -168,8 +170,10 @@
         /* MOBILE HERO FIX */
         @media (max-width: 768px) {
             .hero {
-                min-height: auto;              /* let content decide height */
-                padding: 120px 16px 90px;      /* enough space for buttons */
+                min-height: auto;
+                /* let content decide height */
+                padding: 120px 16px 90px;
+                /* enough space for buttons */
             }
 
             .hero-content {
@@ -781,7 +785,7 @@
 </head>
 
 <body>
-  
+
     <!-- NAVBAR WITH FLIP-TO-X ICON (PERFECT) -->
     <div class="nav-wrapper">
         <div class="logo">
@@ -800,7 +804,7 @@
             <div class="menu-item " data-link="contact.html"><span class="num">5</span>&nbsp;<span
                     class="label">Contact</span></div>
 
-           <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
+            <a href="Book.html" class="book-now-btn-desktop">BOOK NOW ↗ </a>
         </div>
 
         <!-- Mobile Toggle with Flip X Animation -->
@@ -836,7 +840,7 @@
         </div>
     </section>
 
-   
+
 
     <!-- ABOUT / PROJECT OVERVIEW -->
     <section id="about" class="about-section">
@@ -872,7 +876,7 @@
             </div>
         </div>
     </section>
- <!-- 1. WHO WE HOST -->
+    <!-- 1. WHO WE HOST -->
     <section id="who-we-host" class="who-section">
         <div class="container">
             <div class="section-heading">
@@ -1106,26 +1110,26 @@
     <!-- FOOTER INCLUDE -->
     <div id="footer-container"></div>
     <script src="script.js"></script>
+<script src='https://www.noupe.com/embed/019b06ca9d7c745e83892bee4ecef7322b64.js'></script>
+    <script>
+        // Mobile Menu with Flip X Animation
+        document.getElementById("mobileToggle").addEventListener("click", function () {
+            const menu = document.getElementById("mobileMenu");
+            const toggle = document.getElementById("mobileToggle");
 
-<script>
-    // Mobile Menu with Flip X Animation
-document.getElementById("mobileToggle").addEventListener("click", function () {
-    const menu = document.getElementById("mobileMenu");
-    const toggle = document.getElementById("mobileToggle");
+            menu.classList.toggle("active");
+            toggle.classList.toggle("active");
 
-    menu.classList.toggle("active");
-    toggle.classList.toggle("active");
-
-    // Auto-close when clicking a link
-    document.querySelectorAll("#mobileMenu a").forEach(link => {
-        link.addEventListener("click", () => {
-            menu.classList.remove("active");
-            toggle.classList.remove("active");
+            // Auto-close when clicking a link
+            document.querySelectorAll("#mobileMenu a").forEach(link => {
+                link.addEventListener("click", () => {
+                    menu.classList.remove("active");
+                    toggle.classList.remove("active");
+                });
+            });
         });
-    });
-});
 
-</script>
+    </script>
 </body>
 
 </html>
