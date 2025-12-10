@@ -247,7 +247,10 @@
             text-align: center;
             font-size: 1.2rem !important;
         }
-/* ====== CHAT BUTTON ====== */
+
+/* ==============================
+   FLOATING CHAT BUTTON
+============================== */
 .chatbot-btn {
     position: fixed;
     bottom: 25px;
@@ -265,23 +268,42 @@
     padding: 0;
     overflow: hidden;
     z-index: 9999;
+    transition: 0.2s ease;
+}
+
+.chatbot-btn:hover {
+    transform: scale(1.05);
 }
 
 .chatbot-btn img {
-    width: 80%;
-    height: 80%;
+    width: 60%;
+    height: 60%;
     border-radius: 50%;
     object-fit: cover;
 }
 
-/* ====== CHAT WINDOW ====== */
+/* MOBILE BUTTON FIX */
+@media (max-width: 480px) {
+    .chatbot-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+
+/* ==============================
+   CHAT WINDOW (RESPONSIVE)
+============================== */
 .chat-window {
-    width: 330px;
+    width: 90%;
+    max-width: 350px;
     height: 0;
     background: #ffffff !important;
     position: fixed;
     bottom: 110px;
-    right: 25px;
+    right: 20px;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
@@ -290,12 +312,26 @@
 }
 
 .chat-window.open {
-    height: 450px;
+    height: 70vh;
+    max-height: 480px;
 }
 
-/* ====== HEADER ====== */
+/* MOBILE CHAT FIX */
+@media (max-width: 480px) {
+    .chat-window {
+        width: 95%;
+        right: 10px;
+        bottom: 90px;
+        max-width: none;
+    }
+}
+
+
+/* ==============================
+   CHAT HEADER
+============================== */
 .chat-header {
-    background: #CFA72D;
+    background: #0a244d;
     color: #fff;
     padding: 12px;
     display: flex;
@@ -310,13 +346,22 @@
 }
 
 .chat-avatar {
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-/* ====== BODY ====== */
+@media (max-width: 480px) {
+    .chat-header-left span {
+        font-size: 14px;
+    }
+}
+
+
+/* ==============================
+   CHAT BODY
+============================== */
 .chat-body {
     padding: 15px;
     height: calc(100% - 95px);
@@ -325,12 +370,22 @@
     font-family: Arial, sans-serif;
 }
 
-.bot-msg, .user-msg, .typing {
+.bot-msg,
+.user-msg,
+.typing {
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 12px;
     max-width: 80%;
     font-size: 14px;
+}
+
+@media (max-width: 480px) {
+    .bot-msg,
+    .user-msg {
+        font-size: 13px;
+        padding: 10px;
+    }
 }
 
 .bot-msg {
@@ -350,12 +405,16 @@
     opacity: 0.7;
 }
 
-/* ====== INPUT ====== */
+
+/* ==============================
+   INPUT AREA
+============================== */
 .chat-input {
     display: flex;
     background: #fff;
     padding: 10px;
     border-top: 1px solid #ddd;
+    gap: 10px;
     margin-top: -30px;
 }
 
@@ -366,20 +425,44 @@
     border: 1px solid #ccc;
     outline: none;
     background: #fff;
+    font-size: 14px;
+    color: #333;
+}
+
+.chat-input input::placeholder {
+    color: #888;
 }
 
 .chat-input button {
-    background: #CFA72D;
+    background: #0a244d;
     color: #fff;
     border: none;
-    padding: 10px 15px;
-    margin-left: 8px;
+    padding: 10px 18px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.2s ease;
 }
 
 .chat-input button:hover {
     background: #CFA72D;
     color: #000;
+}
+
+/* MOBILE INPUT FIX */
+@media (max-width: 480px) {
+    .chat-input {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .chat-input input {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .chat-input button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
 }
