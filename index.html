@@ -1975,14 +1975,7 @@
     </script>
 
     <script>
-        // FAQ Accordion – 100% WORKING
-        document.querySelectorAll('.faq-q').forEach(q => {
-            q.addEventListener('click', () => {
-                const item = q.parentElement;
-                item.classList.toggle('active');
-            });
-        });
-
+      
         // Animation on scroll
         gsap.from(".faq-item", {
             y: 80,
@@ -1993,6 +1986,45 @@
             scrollTrigger: { trigger: ".faq-section", start: "top 75%" }
         });
     </script>
+    <script>
+document.querySelectorAll(".faq-q").forEach(q => {
+  q.addEventListener("click", () => {
+    const currentItem = q.parentElement;
+    const currentAnswer = currentItem.querySelector(".faq-a");
+
+    // Close all other FAQs
+    document.querySelectorAll(".faq-item").forEach(item => {
+      if (item !== currentItem && item.classList.contains("active")) {
+        item.classList.remove("active");
+        gsap.to(item.querySelector(".faq-a"), {
+          height: 0,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      }
+    });
+
+    // Toggle current FAQ
+    if (currentItem.classList.contains("active")) {
+      currentItem.classList.remove("active");
+      gsap.to(currentAnswer, {
+        height: 0,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    } else {
+      currentItem.classList.add("active");
+      gsap.fromTo(currentAnswer,
+        { height: 0, opacity: 0 },
+        { height: "auto", opacity: 1, duration: 0.6, ease: "power3.out" }
+      );
+    }
+  });
+});
+</script>
+
 
 </body>
 
